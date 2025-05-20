@@ -1,15 +1,15 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Goon_2 here.
+ * Write a description of class Goon_Two here.
  * 
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class Goon_2 extends Actor
+public class Goon_Two extends Actor
 {
     /**
-     * Act - do whatever the Goon_2 wants to do. This method is called whenever
+     * Act - do whatever the Goon_Two wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public void act()
