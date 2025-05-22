@@ -26,4 +26,11 @@ public class Hero extends Actor
     {
         
     }
+    public void takeDamage(int damage) {
+        currHealth -= damage - defense;
+        if (currHealth < 0){
+            currHealth = 0;
+        }
+        
+    }
 }
