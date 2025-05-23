@@ -8,12 +8,30 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Boss extends Actor
 {
-    /**
-     * Act - do whatever the Boss wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    private int level; 
+    private int maxHealth;
+    private int currHealth;
+    private String name;
+    private int defense;
+    private int attack;
+    public Boss(int level, int maxHealth, int currHealth, String name, int defense, int attack)
+    {
+        this.level = level;
+        this.maxHealth = maxHealth;
+        this.currHealth = maxHealth; 
+        this.name = name;
+        this.defense = defense;
+        this.attack = attack;
+    }
     public void act()
     {
-        // Add your action code here.
+        
+    }
+    public void takeDamage(int damage) {
+        currHealth -= damage - defense;
+        if (currHealth < 0){
+            currHealth = 0;
+        }
+        
     }
 }
