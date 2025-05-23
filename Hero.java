@@ -30,6 +30,8 @@ public class Hero extends Actor
         currHealth -= damage - defense;
         if (currHealth < 0){
             currHealth = 0;
+            GameOver gameWorld = new GameOver();
+            Greenfoot.setWorld(gameWorld);
         }
         
     }
