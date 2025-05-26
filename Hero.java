@@ -111,16 +111,6 @@ public class Hero extends Actor{
         attack++;
         defense++;
     }
-    {
-        
-    }
-    public void takeDamage(int damage) {
-        currHealth -= damage - defense;
-        if (currHealth < 0){
-            currHealth = 0;
-            GameOver gameWorld = new GameOver();
-            Greenfoot.setWorld(gameWorld);
-        }
-    }
 }
+
 
