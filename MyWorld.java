@@ -4,10 +4,7 @@ import greenfoot.*;
 public class MyWorld extends World {
     private int waveNumber = 1;
     private int enemiesRemaining = 0;
-<<<<<<< HEAD
     public static boolean inWorld = false; 
-=======
->>>>>>> 5050f1322ff902331250e8fce7276cff04be956e
 
     public MyWorld() {
         super(600, 400, 1);
@@ -64,12 +61,6 @@ public class MyWorld extends World {
         addObject(new SelectWorldTwo(), 200, 300);
         addObject(new SelectWorldThree(), 300, 150);
         addObject(new SelectWorldFour(), 400, 325);
-<<<<<<< HEAD
         addObject(new SelectWorldFive(), 500, 75);  
-=======
-        addObject(new SelectWorldFive(), 500, 75);
-
-
->>>>>>> 5050f1322ff902331250e8fce7276cff04be956e
     }
 }

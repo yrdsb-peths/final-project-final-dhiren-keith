@@ -45,8 +45,5 @@ public class Bullet extends Actor {
             getWorld().removeObject(this);
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 5050f1322ff902331250e8fce7276cff04be956e
+

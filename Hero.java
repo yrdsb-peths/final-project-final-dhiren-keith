@@ -110,8 +110,6 @@ public class Hero extends Actor{
         currHealth = maxHealth;
         attack++;
         defense++;
-<<<<<<< HEAD
-=======
     }
     {
         
@@ -123,8 +121,6 @@ public class Hero extends Actor{
             GameOver gameWorld = new GameOver();
             Greenfoot.setWorld(gameWorld);
         }
-        
->>>>>>> 5050f1322ff902331250e8fce7276cff04be956e
     }
 }
 
