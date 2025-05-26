@@ -13,6 +13,12 @@ public class SelectWorldTwo extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     public int level;
+    public SelectWorldTwo() 
+    {
+        GreenfootImage image = getImage();
+        image.scale(75, 75);                
+        setImage(image);                    
+    }
     
     public int getLevel()
     {
