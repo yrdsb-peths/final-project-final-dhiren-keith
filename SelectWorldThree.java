@@ -16,7 +16,7 @@ public class SelectWorldThree extends Actor
     public SelectWorldThree() 
     {
         GreenfootImage image = getImage();
-        image.scale(75, 75);                
+        image.scale(120, 120);                
         setImage(image);                    
     }
     
