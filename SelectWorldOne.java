@@ -32,6 +32,7 @@ public class SelectWorldOne extends Actor
             if(level == 0)
             {
                Greenfoot.setWorld(new WorldTwo()); 
+               MyWorld.inWorld = true;
             }
             else
             {
