@@ -87,6 +87,10 @@ public class Hero extends Actor{
     public int getMaxHealth() {
         return maxHealth;
     }
+    
+    public int getLevel(){
+        return level;
+    }
 
     public void heal(int amount) {
         currHealth += amount;
@@ -105,11 +109,16 @@ public class Hero extends Actor{
     }
 
     public void levelUp() {
-        level++;
-        maxHealth += 10; // Example growth
+        level+=5;
+        maxHealth += 10;
         currHealth = maxHealth;
         attack++;
         defense++;
+    }
+    
+    public void onWaveCleared()
+    {
+        levelUp();
     }
 }
 

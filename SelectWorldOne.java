@@ -13,7 +13,7 @@ public class SelectWorldOne extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    public int level;
+    public int level=0;
     public SelectWorldOne() 
     {
         GreenfootImage image = new GreenfootImage("1.png");
