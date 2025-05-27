@@ -15,7 +15,7 @@ public class SelectWorldTwo extends Actor
     public int level;
     public SelectWorldTwo() 
     {
-        GreenfootImage image = getImage();
+        GreenfootImage image = new GreenfootImage("1.png");
         image.scale(75, 75);                
         setImage(image);                    
     }
