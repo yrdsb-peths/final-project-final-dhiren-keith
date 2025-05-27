@@ -15,7 +15,10 @@ public class WorldFive extends World
      */
     public WorldFive()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
+        GreenfootImage image = new GreenfootImage("bg5.png");  
+        image.scale(600, 400);
+        setBackground(image);  
+
     }
 }
