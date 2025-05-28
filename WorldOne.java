@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class WorldOne extends World
+public class WorldOne extends MyWorld
 {
 
     /**
@@ -16,9 +16,15 @@ public class WorldOne extends World
     public WorldOne()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
-        GreenfootImage image = new GreenfootImage("bg1.png");  
+        super();
+        GreenfootImage image = new GreenfootImage("bg1.jpg");  
         image.scale(600, 400);
         setBackground(image);  
+        removeObjects(getObjects(SelectWorldOne.class));
+        removeObjects(getObjects(SelectWorldTwo.class));
+        removeObjects(getObjects(SelectWorldThree.class));
+        removeObjects(getObjects(SelectWorldFour.class));
+        removeObjects(getObjects(SelectWorldFive.class));
+        prepare();
     }
 }

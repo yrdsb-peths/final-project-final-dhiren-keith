@@ -15,10 +15,12 @@ public class WorldTwo extends World
      */
     public WorldTwo()
     {    
+        
         super(600, 400, 1); 
-        GreenfootImage image = new GreenfootImage("bg2.png");  
+        GreenfootImage image = new GreenfootImage("bg2.jpg");  
         image.scale(600, 400);
         setBackground(image);  
 
     }
+    
 }

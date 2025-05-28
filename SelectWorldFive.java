@@ -24,6 +24,7 @@ public class SelectWorldFive extends Actor
     {
         return level;
     }
+
     public void act()
     {
         if(Greenfoot.mouseClicked(this))
@@ -31,6 +32,7 @@ public class SelectWorldFive extends Actor
             if(level == 80)
             {
                Greenfoot.setWorld(new WorldTwo()); 
+               
             }
             else
             {

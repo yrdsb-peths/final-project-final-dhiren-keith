@@ -16,7 +16,7 @@ public class WorldFour extends World
     public WorldFour()
     {    
         super(600, 400, 1); 
-        GreenfootImage image = new GreenfootImage("bg4.png");  
+        GreenfootImage image = new GreenfootImage("bg4.jpg");  
         image.scale(600, 400);
         setBackground(image);  
 

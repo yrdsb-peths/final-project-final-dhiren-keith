@@ -31,6 +31,7 @@ public class SelectWorldTwo extends Actor
             if(level == 20)
             {
                Greenfoot.setWorld(new WorldTwo()); 
+               
             }
             else
             {

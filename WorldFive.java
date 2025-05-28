@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class WorldFive extends World
+public class WorldFive extends MyWorld
 {
 
     /**
@@ -15,10 +15,11 @@ public class WorldFive extends World
      */
     public WorldFive()
     {    
-        super(600, 400, 1); 
-        GreenfootImage image = new GreenfootImage("bg5.png");  
+        super();
+        GreenfootImage image = new GreenfootImage("bg5.jpg");  
         image.scale(600, 400);
         setBackground(image);  
-
+        prepare();
     }
+    
 }
