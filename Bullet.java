@@ -7,12 +7,10 @@ public class Bullet extends Actor {
     public Bullet(String direction) {
         this.direction = direction;
 
-        // Load and scale the bullet image
         GreenfootImage image = new GreenfootImage("bullet.png");
-        image.scale(20, 10); // adjust the size to what looks good
+        image.scale(20, 10);
         setImage(image);
 
-        // Rotate the image to face the shooting direction
         switch (direction) {
             case "left":
                 setRotation(180);
@@ -31,6 +29,7 @@ public class Bullet extends Actor {
 
     public void act() {
         moveInDirection();
+        if (checkCollision()) return; // Exit act() early if bullet was removed
         checkBounds();
     }
 
@@ -55,5 +54,15 @@ public class Bullet extends Actor {
         if (isAtEdge()) {
             getWorld().removeObject(this);
         }
+    }
+
+    private boolean checkCollision() {
+        Enemy enemy = (Enemy)getOneIntersectingObject(Enemy.class);
+        if (enemy != null) {
+            enemy.takeDamage(1);
+            getWorld().removeObject(this);
+            return true; // Bullet has been removed
+        }
+        return false; // Bullet is still here
     }
 }

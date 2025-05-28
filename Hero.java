@@ -73,7 +73,7 @@ public class Hero extends Actor{
     }
 
     public void takeDamage(int damage) {
-        if(isTouching(Boss.class))
+        if(isTouching(Enemy.class))
         {
             int actualDamage = Math.max(0, damage - defense);
             currHealth -= actualDamage;

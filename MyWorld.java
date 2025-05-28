@@ -27,8 +27,8 @@ public class MyWorld extends World {
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = Greenfoot.getRandomNumber(getWidth());
             int y = Greenfoot.getRandomNumber(getHeight());
-            Boss boss = new Boss(waveNumber, 100, 100, "Boss", 5, 10);
-            addObject(boss, x, y);
+            Enemy goon = new Enemy(waveNumber, 1, "GOOON", 0, 10);
+            addObject(goon, x, y);
         }
         enemiesRemaining = numberOfEnemies;
         
