@@ -6,7 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (your name) 
  * @version (a version number or a date)
  */
-public class WorldTwo extends World
+public class WorldTwo extends MyWorld
 {
 
     /**
@@ -15,12 +15,15 @@ public class WorldTwo extends World
      */
     public WorldTwo()
     {    
-        
-        super(600, 400, 1); 
+        super();
         GreenfootImage image = new GreenfootImage("bg2.jpg");  
         image.scale(600, 400);
         setBackground(image);  
-
+        removeObjects(getObjects(SelectWorldOne.class));
+        removeObjects(getObjects(SelectWorldTwo.class));
+        removeObjects(getObjects(SelectWorldThree.class));
+        removeObjects(getObjects(SelectWorldFour.class));
+        removeObjects(getObjects(SelectWorldFive.class));
+        prepare();
     }
-    
 }

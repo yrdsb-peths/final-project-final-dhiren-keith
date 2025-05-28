@@ -1,8 +1,5 @@
 import greenfoot.*;
 
-/**
- * The Bullet class represents a projectile fired by the Hero.
- */
 public class Bullet extends Actor {
     private int speed = 10;
     private String direction;
@@ -10,13 +7,30 @@ public class Bullet extends Actor {
     public Bullet(String direction) {
         this.direction = direction;
 
-        GreenfootImage image = new GreenfootImage("bullet.jpg");
+        // Load and scale the bullet image
+        GreenfootImage image = new GreenfootImage("bullet.png");
+        image.scale(20, 10); // adjust the size to what looks good
         setImage(image);
+
+        // Rotate the image to face the shooting direction
+        switch (direction) {
+            case "left":
+                setRotation(180);
+                break;
+            case "right":
+                setRotation(0);
+                break;
+            case "up":
+                setRotation(270);
+                break;
+            case "down":
+                setRotation(90);
+                break;
+        }
     }
 
     public void act() {
         moveInDirection();
-        //add colisions
         checkBounds();
     }
 
@@ -37,11 +51,9 @@ public class Bullet extends Actor {
         }
     }
 
-
     private void checkBounds() {
         if (isAtEdge()) {
             getWorld().removeObject(this);
         }
     }
 }
-

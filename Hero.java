@@ -15,6 +15,10 @@ public class Hero extends Actor{
     private int currHealth;
     private int defense;
     private int attack;
+    private int speed;
+    
+    private int shootDelay = 15; 
+    private int shootTimer = 0;
 
     public Hero() {
         this.level = 1;
@@ -22,40 +26,46 @@ public class Hero extends Actor{
         this.currHealth = maxHealth; 
         this.defense = 0;
         this.attack = 1;
+        this.speed = 3;
     }
 
     public void act() {
         checkKeys();
+        shootTimer++;
     }
 
     private void checkKeys() {
         if (Greenfoot.isKeyDown("a")) {
-            move(-5);
+            move(-speed);
         }
         if (Greenfoot.isKeyDown("d")) {
-            move(5);
+            move(speed);
         }
         if (Greenfoot.isKeyDown("w")) {
-            setLocation(getX(), getY() - 5);
+            setLocation(getX(), getY() - speed);
         }
         if (Greenfoot.isKeyDown("s")) {
-            setLocation(getX(), getY() + 5);
+            setLocation(getX(), getY() + speed);
         }
 
         // Shoot in the direction of the arrow keys
-        if (Greenfoot.isKeyDown("left")) {
-            shoot("left");
-        }
-        if (Greenfoot.isKeyDown("right")) {
-            shoot("right");
-        }
-        if (Greenfoot.isKeyDown("up")) {
-            shoot("up");
-        }
-        if (Greenfoot.isKeyDown("down")) {
-            shoot("down");
+       if (shootTimer >= shootDelay) {
+            if (Greenfoot.isKeyDown("left")) {
+                shoot("left");
+                shootTimer = 0; 
+            } else if (Greenfoot.isKeyDown("right")) {
+                shoot("right");
+                shootTimer = 0;
+            } else if (Greenfoot.isKeyDown("up")) {
+                shoot("up");
+                shootTimer = 0;
+            } else if (Greenfoot.isKeyDown("down")) {
+                shoot("down");
+                shootTimer = 0;
+            }
         }
     }
+
 
     private void shoot(String direction) {
         Bullet bullet = new Bullet(direction);
@@ -117,6 +127,7 @@ public class Hero extends Actor{
         currHealth = maxHealth;
         attack++;
         defense++;
+        speed++;
     }
     
     public void onWaveCleared()
