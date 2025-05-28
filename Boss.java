@@ -14,6 +14,7 @@ public class Boss extends Actor
     private String name;
     private int defense;
     private int attack;
+    private int speed = 2;
     public Boss(int level, int maxHealth, int currHealth, String name, int defense, int attack)
     {
         this.level = level;
@@ -26,11 +27,14 @@ public class Boss extends Actor
     public void act()
     {
         
+        
     }
+    
     public void takeDamage(int damage) {
         currHealth -= damage - defense;
         if (currHealth < 0){
             currHealth = 0;
+            getWorld().removeObject(this);
         }
         
     }
