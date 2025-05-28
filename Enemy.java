@@ -19,6 +19,21 @@ public class Enemy extends Actor {
     }
 
     public void act() {
+        moveTowardsHero();
+    }
+
+    private void moveTowardsHero() {
+        MyWorld world = (MyWorld) getWorld();
+        if (world != null) {
+            Hero hero = world.getHero();
+            if (hero != null) {
+                int heroX = hero.getX();
+                int heroY = hero.getY();
+
+                turnTowards(heroX, heroY);
+                move(speed);
+            }
+        }
     }
 
     public void takeDamage(int damage) {
@@ -26,10 +41,14 @@ public class Enemy extends Actor {
         if (effectiveDamage < 0) {
             effectiveDamage = 0;
         }
-
+    
         currHealth -= effectiveDamage;
-
+    
         if (currHealth <= 0) {
+            MyWorld world = (MyWorld) getWorld();
+            if (world != null) {
+                world.decrementEnemies();
+            }
             getWorld().removeObject(this);
         }
     }
