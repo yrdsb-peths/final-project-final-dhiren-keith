@@ -16,7 +16,7 @@ public class WorldThree extends World
     public WorldThree()
     {    
         super(600, 400, 1); 
-        GreenfootImage image = new GreenfootImage("bg3.png");  
+        GreenfootImage image = new GreenfootImage("bg3.jpg");  
         image.scale(600, 400);
         setBackground(image);  
  

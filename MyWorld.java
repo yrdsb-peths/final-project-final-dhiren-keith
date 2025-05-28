@@ -9,14 +9,11 @@ public class MyWorld extends World {
     public MyWorld() {
         super(600, 400, 1);
         setWorlds();
-        if(inWorld){
-            prepare();
-        }
         
           
     }
 
-    private void prepare() {
+    public void prepare() {
         // Add the player to the center of the world
         Hero hero = new Hero();
         addObject(hero, getWidth()/2, getHeight()/2);
@@ -34,10 +31,7 @@ public class MyWorld extends World {
             addObject(boss, x, y);
         }
         enemiesRemaining = numberOfEnemies;
-        setWorlds();
-        if(inWorld){
-            prepare();
-        }
+        
     }
 
 

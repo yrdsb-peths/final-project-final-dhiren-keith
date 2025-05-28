@@ -10,9 +10,7 @@ public class Bullet extends Actor {
     public Bullet(String direction) {
         this.direction = direction;
 
-        GreenfootImage image = new GreenfootImage(10, 4);
-        image.setColor(Color.YELLOW);
-        image.fill();
+        GreenfootImage image = new GreenfootImage("bullet.jpg");
         setImage(image);
     }
 
