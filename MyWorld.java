@@ -9,14 +9,18 @@ public class MyWorld extends World {
     public MyWorld() {
         super(600, 400, 1);
         setWorlds();
+        
+          
     }
 
     public void prepare() {
+        // Add the player to the center of the world
         Hero hero = new Hero();
         addObject(hero, getWidth()/2, getHeight()/2);
+
+        // Start the first wave
         startWave();
     }
-
     public void act() {
         if (enemiesRemaining == 0) {
             if (waveDelayTimer == 0) {
@@ -32,7 +36,7 @@ public class MyWorld extends World {
     }
 
     private void startWave() {
-        int numberOfEnemies = waveNumber * 3;
+        int numberOfEnemies = waveNumber * 3; // increase enemies each wave
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = 0;
             int y = 0;
@@ -51,30 +55,31 @@ public class MyWorld extends World {
                 x = Greenfoot.getRandomNumber(getWidth());
                 y = getHeight() + 50;
             }
-
+            
             Enemy goon = new Enemy(waveNumber, 1, "GOOON", 0, 10);
             addObject(goon, x, y);
         }
         enemiesRemaining = numberOfEnemies;
-    }
-
+        
+        }
+      
     public void decrementEnemies() {
         enemiesRemaining--;
     }
 
-    private void setWorlds() {
+
+    private void setWorlds()
+    {
         addObject(new SelectWorldOne(), 100, 100);
         addObject(new SelectWorldTwo(), 200, 300);
         addObject(new SelectWorldThree(), 300, 150);
         addObject(new SelectWorldFour(), 400, 325);
-        addObject(new SelectWorldFive(), 500, 75);
+        addObject(new SelectWorldFive(), 500, 75);  
     }
-
-    public Hero getHero() {
+     public Hero getHero() {
         for (Object obj : getObjects(Hero.class)) {
             return (Hero) obj;
         }
         return null;
     }
 }
-
