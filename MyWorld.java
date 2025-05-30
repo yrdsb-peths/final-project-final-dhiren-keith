@@ -5,6 +5,7 @@ public class MyWorld extends World {
     private int waveNumber = 1;
     private int enemiesRemaining = 0;
     private int waveDelayTimer = 0;
+    private final int maxWaves = 5;
 
     public MyWorld() {
         super(600, 400, 1);
@@ -20,22 +21,29 @@ public class MyWorld extends World {
 
         // Start the first wave
         startWave();
+
     }
     public void act() {
         if (enemiesRemaining == 0) {
-            if (waveDelayTimer == 0) {
-                waveDelayTimer = 120; // 2 seconds delay
+            if(waveNumber >= maxWaves) {
+                Greenfoot.setWorld(new MyWorld());
             } else {
-                waveDelayTimer--;
                 if (waveDelayTimer == 0) {
-                    waveNumber++;
-                    startWave();
+                    waveDelayTimer = 120; // 2 seconds delay
+                } else {
+                    waveDelayTimer--;
+                    if (waveDelayTimer == 0) {
+                        waveNumber++;
+                        startWave();
+                    
                 }
             }
         }
     }
+}
 
     private void startWave() {
+
         int numberOfEnemies = waveNumber * 3; // increase enemies each wave
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = 0;

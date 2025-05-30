@@ -52,4 +52,7 @@ public class Enemy extends Actor {
             getWorld().removeObject(this);
         }
     }
+    public void dealAttack(int attack) {
+        
+    }
 }
