@@ -74,15 +74,11 @@ public class Hero extends Actor{
     }
 
     public void takeDamage(int damage) {
-        if(isTouching(Enemy.class))
-        {
-            int actualDamage = Math.max(0, damage - defense);
-            currHealth -= actualDamage;
-
-            if (currHealth <= 0) {
-                currHealth = 0;
-                Greenfoot.setWorld(new GameOver());
-            }
+        currHealth -= damage;
+        
+        if (currHealth <= 0) {
+            currHealth = 0;
+            Greenfoot.setWorld(new GameOver()); // Pass score if needed
         }
     }
 

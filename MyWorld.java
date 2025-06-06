@@ -79,7 +79,7 @@ public class MyWorld extends World {
                 y = getHeight() + 50;
             }
             
-            Enemy goon = new Enemy(waveNumber, 1, "GOOON", 0, 10);
+            Enemy goon = new Enemy(waveNumber, 1, "GOOON", 0, 1000);
             addObject(goon, x, y);
         }
         enemiesRemaining = numberOfEnemies;
@@ -89,6 +89,7 @@ public class MyWorld extends World {
     public void decrementEnemies() {
         enemiesRemaining--;
     }
+    
 
 
     private void setWorlds()
