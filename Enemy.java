@@ -8,6 +8,9 @@ public class Enemy extends Actor {
     private int defense;
     private int attack;
     private int speed = 2;
+    private int attackCooldown = 30;
+    private int cooldownTimer = 0;
+    
 
     public Enemy(int level, int maxHealth, String name, int defense, int attack) {
         this.level = level;
@@ -18,8 +21,16 @@ public class Enemy extends Actor {
         this.attack = attack;
     }
 
+
     public void act() {
         moveTowardsHero();
+    
+        if (cooldownTimer > 0) {
+            cooldownTimer--;
+        } else {
+            dealDamage(attack);
+            cooldownTimer = attackCooldown;
+        }
     }
 
     private void moveTowardsHero() {
@@ -37,13 +48,8 @@ public class Enemy extends Actor {
     }
 
     public void takeDamage(int damage) {
-        int effectiveDamage = damage - defense;
-        if (effectiveDamage < 0) {
-            effectiveDamage = 0;
-        }
-    
-        currHealth -= effectiveDamage;
-    
+        int actualDamage = Math.max(0, damage - defense);
+        currHealth -= actualDamage;
         if (currHealth <= 0) {
             MyWorld world = (MyWorld) getWorld();
             if (world != null) {
@@ -52,7 +58,17 @@ public class Enemy extends Actor {
             getWorld().removeObject(this);
         }
     }
-    public void dealAttack(int attack) {
-        
+    public void dealDamage(int attack) {
+        MyWorld world = (MyWorld) getWorld();
+        if (world != null) {
+            Hero hero = world.getHero();
+            if (hero != null && this.intersects(hero)) {
+                hero.takeDamage(attack);
+            }
+        }
+    }
+    public int getAttack(){
+        return attack;
     }
 }
+
