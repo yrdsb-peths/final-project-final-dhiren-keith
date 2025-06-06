@@ -22,23 +22,18 @@ public class Label extends Actor
     // The colour of the text fill
     private Color fillColor = Color.WHITE;
     
+    private String font;
     // Transparent background colour
     private static final Color transparent = new Color(0,0,0,0);
 
-    
-    /**
-     * Create a new label, initialise it with the int value to be shown and the font size 
-     */
-    public Label(int value, int fontSize)
-    {
-        this(Integer.toString(value), fontSize);
-    }
+
     
     /**
      * Create a new label, initialise it with the needed text and the font size 
      */
-    public Label(String value, int fontSize)
+    public Label(String value, String font, int fontSize)
     {
+        this.font = font;
         this.value = value;
         this.fontSize = fontSize;
         updateImage();

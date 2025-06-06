@@ -10,8 +10,6 @@ public class MyWorld extends World {
     public MyWorld() {
         super(600, 400, 1);
         setWorlds();
-        
-          
     }
 
     public void prepare() {
@@ -79,11 +77,16 @@ public class MyWorld extends World {
 
     private void setWorlds()
     {
+        addObject(new Label("World One: Level 0","Arial", 20),100, 50);
         addObject(new SelectWorldOne(), 100, 100);
+        addObject(new Label("World Two: Level 20","Arial", 20),200, 250);
         addObject(new SelectWorldTwo(), 200, 300);
+        addObject(new Label("World Three: Level 40","Arial", 20),300, 100);
         addObject(new SelectWorldThree(), 300, 150);
+        addObject(new Label("World Four: Level 60","Arial", 20),400, 275);
         addObject(new SelectWorldFour(), 400, 325);
-        addObject(new SelectWorldFive(), 500, 75);  
+        addObject(new Label("World Five: Level 80","Arial", 20),500, 50);
+        addObject(new SelectWorldFive(), 500, 100);  
     }
      public Hero getHero() {
         for (Object obj : getObjects(Hero.class)) {

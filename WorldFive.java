@@ -19,11 +19,7 @@ public class WorldFive extends MyWorld
         GreenfootImage image = new GreenfootImage("bg5.jpg");  
         image.scale(600, 400);
         setBackground(image);  
-        removeObjects(getObjects(SelectWorldOne.class));
-        removeObjects(getObjects(SelectWorldTwo.class));
-        removeObjects(getObjects(SelectWorldThree.class));
-        removeObjects(getObjects(SelectWorldFour.class));
-        removeObjects(getObjects(SelectWorldFive.class));
+        removeObjects(getObjects(null));
         prepare();
     }
 }

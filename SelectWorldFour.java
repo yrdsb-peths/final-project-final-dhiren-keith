@@ -34,7 +34,7 @@ public class SelectWorldFour extends Actor
             }
             else
             {
-                Label label = new Label("Level not high enough for this world",30);
+                Label label = new Label("Level not high enough for this world","Arial",30);
                 
             }
         }
