@@ -2,21 +2,30 @@ import greenfoot.Actor;
 import greenfoot.*;
 
 public class MyWorld extends World {
+    private Hero hero;
     private int waveNumber = 1;
     private int enemiesRemaining = 0;
     private int waveDelayTimer = 0;
     private final int maxWaves = 5;
 
-    public MyWorld() {
+    public MyWorld(Hero hero) {
         super(600, 400, 1);
+        this.hero = hero;
         setWorlds();
         
           
     }
+    
+    public MyWorld() {
+        super(600, 400, 1);
+        setWorlds();
+    }
 
     public void prepare() {
         // Add the player to the center of the world
-        Hero hero = new Hero();
+        if(hero == null) {
+            hero = new Hero();
+        }
         addObject(hero, getWidth()/2, getHeight()/2);
 
         // Start the first wave
@@ -26,7 +35,7 @@ public class MyWorld extends World {
     public void act() {
         if (enemiesRemaining == 0) {
             if(waveNumber >= maxWaves) {
-                Greenfoot.setWorld(new MyWorld());
+                Greenfoot.setWorld(new MyWorld(hero));
             } else {
                 if (waveDelayTimer == 0) {
                     waveDelayTimer = 120; // 2 seconds delay
@@ -34,6 +43,12 @@ public class MyWorld extends World {
                     waveDelayTimer--;
                     if (waveDelayTimer == 0) {
                         waveNumber++;
+                        Hero hero = getHero();
+                        if (hero != null)
+                        {
+                            hero.onWaveCleared();
+                            showText("Level: " + hero.getLevel(), 100, 30); 
+                        }
                         startWave();
                     
                 }
@@ -85,9 +100,6 @@ public class MyWorld extends World {
         addObject(new SelectWorldFive(), 500, 75);  
     }
      public Hero getHero() {
-        for (Object obj : getObjects(Hero.class)) {
-            return (Hero) obj;
-        }
-        return null;
+        return hero;
     }
 }
