@@ -13,7 +13,7 @@ public class SelectWorldOne extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
-    public int level=0;
+    public int persistentLevel;
     public SelectWorldOne() 
     {
         GreenfootImage image = new GreenfootImage("1.png");
@@ -23,13 +23,13 @@ public class SelectWorldOne extends Actor
     
     public int getLevel()
     {
-        return level;
+        return persistentLevel;
     }
     public void act()
     {
         if(Greenfoot.mouseClicked(this))
         {
-            if(level == 0)
+            if(persistentLevel == 0)
             {
                 WorldOne worldOne = new WorldOne();
                 Greenfoot.setWorld(worldOne);

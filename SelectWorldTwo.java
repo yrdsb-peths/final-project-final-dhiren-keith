@@ -12,7 +12,7 @@ public class SelectWorldTwo extends Actor
      * Act - do whatever the SelectWorldTwo wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
-    public int level;
+    public int persistentLevel;
     public SelectWorldTwo() 
     {
         GreenfootImage image = new GreenfootImage("2.png");
@@ -22,13 +22,13 @@ public class SelectWorldTwo extends Actor
     
     public int getLevel()
     {
-        return level;
+        return persistentLevel;
     }
     public void act()
     {
         if(Greenfoot.mouseClicked(this))
         {
-            if(level == 20)
+            if(persistentLevel == 25)
             {
                Greenfoot.setWorld(new WorldTwo()); 
                
