@@ -9,12 +9,14 @@ public class MyWorld extends World {
 
     public MyWorld(Hero hero) {
         super(600, 400, 1);
+        setBackground("space.jpg");
         this.hero = hero;
         setWorlds();
     }
 
     public MyWorld() {
         super(600, 400, 1);
+        setBackground("space.jpg");
         setWorlds();
     }
 
@@ -45,8 +47,7 @@ public class MyWorld extends World {
     public void prepare() {
         if (hero == null) {
             hero = new Hero();
-        }
-        addObject(hero, getWidth() / 2, getHeight() / 2);
+        }         addObject(hero, getWidth() / 2, getHeight() / 2);
         
     }
 
