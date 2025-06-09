@@ -132,7 +132,6 @@ public class Hero extends Actor{
     {
 
         levelUp();
-        System.out.println("Level: " + level);
     }
 }
 

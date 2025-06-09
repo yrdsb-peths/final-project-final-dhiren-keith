@@ -1,26 +1,22 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class WorldOne here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class WorldOne extends MyWorld
-{
+public class WorldOne extends MyWorld {
+    private boolean gameStarted = false;
 
-    /**
-     * Constructor for objects of class WorldOne.
-     * 
-     */
-    public WorldOne()
-    {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
+    public WorldOne() {
         super();
-        GreenfootImage image = new GreenfootImage("bg1.jpg");  
+        GreenfootImage image = new GreenfootImage("bg1.jpg");
         image.scale(600, 400);
-        setBackground(image);  
+        setBackground(image);
         removeObjects(getObjects(null));
-        prepare();
+        
+    }
+
+    public void act() {
+        if (!gameStarted) {
+            prepare(); 
+            gameStarted = true;
+        }
+        super.act(); // handle wave system
     }
 }
