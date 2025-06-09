@@ -9,18 +9,18 @@ public class SelectWorldOne extends Actor {
         setImage(image);
     }
 
-    public int getLevel() {
-        return persistentLevel;
-    }
 
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
-            if (persistentLevel == 0) {
-                WorldOne worldOne = new WorldOne();
-                Greenfoot.setWorld(worldOne); // triggers act() in WorldOne
+            int currentLevel = Hero.getPersistentLevel();
+            if (currentLevel == 0) {
+            WorldOne worldOne = new WorldOne();
+            Greenfoot.setWorld(worldOne); // triggers act() in WorldOne
             } else {
-                Label label = new Label("Level not high enough for this world", "Arial", 30);
-                getWorld().addObject(label, getX(), getY() - 50);
+                getWorld().showText("World One is only for level 0! Current level: " + currentLevel, 
+                getWorld().getWidth()/2, getWorld().getHeight()/2);
+                Greenfoot.delay(120);
+                getWorld().showText("", getWorld().getWidth()/2, getWorld().getHeight()/2);
             }
         }
     }

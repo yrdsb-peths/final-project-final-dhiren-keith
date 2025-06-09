@@ -15,11 +15,13 @@ public class MyWorld extends World {
 
     public MyWorld() {
         super(600, 400, 1);
+        Hero.resetPersistentLevel();
         setWorlds();
     }
 
     public void act() {
         if (getClass() == MyWorld.class) return;
+        showText("Level: " + hero.getLevel(), 75, 30);
         if (enemiesRemaining == 0) {
             if (waveNumber >= maxWaves) {
                 Greenfoot.setWorld(new MyWorld(hero));
@@ -33,7 +35,6 @@ public class MyWorld extends World {
                         Hero hero = getHero();
                         if (hero != null) {
                             hero.onWaveCleared();
-                            showText("Level: " + hero.getLevel(), 100, 30);
                         }
                         startWave();
                     }
@@ -50,7 +51,7 @@ public class MyWorld extends World {
         
     }
 
-    private void startWave() {
+    public void startWave() {
         int numberOfEnemies = waveNumber * 3;
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = 0, y = 0;
@@ -80,6 +81,8 @@ public class MyWorld extends World {
     }
 
     private void setWorlds() {
+        int currentLevel = Hero.getPersistentLevel();
+        
         addObject(new Label("World One: Level 0", "Arial", 20), 100, 50);
         addObject(new SelectWorldOne(), 100, 100);
         addObject(new Label("World Two: Level 20", "Arial", 20), 200, 250);
@@ -90,6 +93,8 @@ public class MyWorld extends World {
         addObject(new SelectWorldFour(), 400, 325);
         addObject(new Label("World Five: Level 80", "Arial", 20), 500, 50);
         addObject(new SelectWorldFive(), 500, 100);
+        
+        addObject(new Label("Current Level: " + currentLevel, "Arial", 24), 300, 200);
     }
 
     public Hero getHero() {

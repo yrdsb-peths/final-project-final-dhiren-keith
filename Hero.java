@@ -11,6 +11,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 public class Hero extends Actor{
     private static int persistentLevel = 0;
+    private static boolean initialized = false;
     private int level; 
     private int maxHealth;
     private int currHealth;
@@ -22,12 +23,16 @@ public class Hero extends Actor{
     private int shootTimer = 0;
 
     public Hero() {
+        if (!initialized) {
+            persistentLevel = 0;
+            initialized = true;
+        }
         this.level = persistentLevel;
-        this.maxHealth = 100;
+        this.maxHealth = 100 + (persistentLevel * 2);
         this.currHealth = maxHealth; 
-        this.defense = 0;
-        this.attack = 1;
-        this.speed = 3;
+        this.defense = persistentLevel / 5;
+        this.attack = 1 + (persistentLevel / 5);
+        this.speed = 3 + (persistentLevel / 10);
     }
 
     public void act() {
@@ -101,6 +106,15 @@ public class Hero extends Actor{
     public int getLevel(){
         return level;
     }
+    
+    public static int getPersistentLevel() {
+        return persistentLevel;
+    }
+    
+    public static void resetPersistentLevel() {
+        persistentLevel = 0;
+        initialized = false;
+    }
 
     public void heal(int amount) {
         currHealth += amount;
@@ -115,7 +129,6 @@ public class Hero extends Actor{
 
     public void setDefense(int defense) {
         this.defense = defense;
-        this.attack = attack;
     }
 
     public void levelUp() {
@@ -130,7 +143,6 @@ public class Hero extends Actor{
     
     public void onWaveCleared()
     {
-
         levelUp();
     }
 }
