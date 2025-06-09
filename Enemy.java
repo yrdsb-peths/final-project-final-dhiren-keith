@@ -7,18 +7,19 @@ public class Enemy extends Actor {
     private String name;
     private int defense;
     private int attack;
-    private int speed = 2;
+    private int speed;
     private int attackCooldown = 30;
     private int cooldownTimer = 0;
     
 
-    public Enemy(int level, int maxHealth, String name, int defense, int attack) {
+    public Enemy(int level, int maxHealth, String name, int defense, int attack, int speed) {
         this.level = level;
         this.maxHealth = maxHealth;
         this.currHealth = maxHealth;
         this.name = name;
         this.defense = defense;
         this.attack = attack;
+        this.speed = speed;
     }
 
 

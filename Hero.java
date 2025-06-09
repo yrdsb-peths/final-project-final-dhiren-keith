@@ -10,8 +10,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 
 public class Hero extends Actor{
-    private static int persistentLevel = 0;
-    private int level; 
+    private static int level = 0;
     private int maxHealth;
     private int currHealth;
     private int defense;
@@ -22,10 +21,10 @@ public class Hero extends Actor{
     private int shootTimer = 0;
 
     public Hero() {
-        this.level = persistentLevel;
+        this.level = level;
         this.maxHealth = 100;
         this.currHealth = maxHealth; 
-        this.defense = 0;
+        this.defense = 1;
         this.attack = 1;
         this.speed = 3;
     }
@@ -115,24 +114,18 @@ public class Hero extends Actor{
 
     public void setDefense(int defense) {
         this.defense = defense;
-        this.attack = attack;
     }
 
     public void levelUp() {
-        level+=5;
+        level+=1;
         maxHealth += 10;
         currHealth = maxHealth;
         attack++;
         defense++;
         speed++;
-        persistentLevel = level;
     }
     
-    public void onWaveCleared()
-    {
 
-        levelUp();
-    }
 }
 
 

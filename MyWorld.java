@@ -32,7 +32,7 @@ public class MyWorld extends World {
                         waveNumber++;
                         Hero hero = getHero();
                         if (hero != null) {
-                            hero.onWaveCleared();
+                            hero.levelUp();
                             showText("Level: " + hero.getLevel(), 100, 30);
                         }
                         startWave();
@@ -69,7 +69,7 @@ public class MyWorld extends World {
                 y = getHeight() + 50;
             }
 
-            Enemy goon = new Enemy(waveNumber, 1, "GOON", 0, 1000);
+            Enemy goon = new Enemy(waveNumber, 1, "GOON", 0, 20, 2);
             addObject(goon, x, y);
         }
         enemiesRemaining = numberOfEnemies;
