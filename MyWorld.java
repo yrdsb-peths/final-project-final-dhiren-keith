@@ -19,6 +19,7 @@ public class MyWorld extends World {
     }
 
     public void act() {
+        if (getClass() == MyWorld.class) return;
         if (enemiesRemaining == 0) {
             if (waveNumber >= maxWaves) {
                 Greenfoot.setWorld(new MyWorld(hero));
@@ -41,12 +42,12 @@ public class MyWorld extends World {
         }
     }
 
-    protected void prepare() {
+    public void prepare() {
         if (hero == null) {
             hero = new Hero();
         }
         addObject(hero, getWidth() / 2, getHeight() / 2);
-        startWave();
+        
     }
 
     private void startWave() {
