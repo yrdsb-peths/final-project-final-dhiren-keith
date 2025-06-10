@@ -18,7 +18,7 @@ public class SelectWorldFive extends Actor {
             Greenfoot.setWorld(worldFive); // triggers act() in WorldOne
             } else {
                 int x = getWorld().getWidth() / 2;
-                int y = getWorld().getHeight() -30;
+                int y = getWorld().getHeight() / 2;
                 getWorld().showText("World Five is only for level 80! Current level: " + currentLevel, x, y);
                 Greenfoot.delay(120);
                 getWorld().showText("", x, y);
