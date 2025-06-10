@@ -17,7 +17,7 @@ public class Hero extends Actor {
     private int attack;
     private int speed;
     
-    private int shootDelay = 15; 
+    private double shootDelay = 15; 
     private int shootTimer = 0;
 
     public Hero() {
@@ -133,6 +133,7 @@ public class Hero extends Actor {
         speed++;
         heal(maxHealth);
         persistentLevel = level;
+        shootDelay = shootDelay / 1.2;
     }
     
 
