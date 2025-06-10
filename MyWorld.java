@@ -55,6 +55,8 @@ public class MyWorld extends World {
 
     public void startWave() {
         int numberOfEnemies = waveNumber * 3;
+        int heroLevel = hero.getLevel();
+        
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = 0, y = 0;
             int side = Greenfoot.getRandomNumber(4);
@@ -72,7 +74,7 @@ public class MyWorld extends World {
                 y = getHeight() + 50;
             }
 
-            Enemy goon = new Enemy(waveNumber, 1, "GOON", 0, 20, 2);
+            Enemy goon = new Enemy(heroLevel / 3);
             addObject(goon, x, y);
         }
         enemiesRemaining = numberOfEnemies;

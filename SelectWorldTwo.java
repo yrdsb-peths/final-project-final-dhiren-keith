@@ -18,7 +18,7 @@ public class SelectWorldTwo extends Actor {
             Greenfoot.setWorld(worldTwo); // triggers act() in WorldOne
             } else {
                 int x = getWorld().getWidth() / 2;
-                int y = getWorld().getHeight() -30;
+                int y = getWorld().getHeight() /2;
                 getWorld().showText("World Two is only for level 20! Current level: " + currentLevel, x, y);
                 Greenfoot.delay(120);
                 getWorld().showText("", x, y);

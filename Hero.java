@@ -68,7 +68,7 @@ public class Hero extends Actor {
 
 
     private void shoot(String direction) {
-        Bullet bullet = new Bullet(direction);
+        Bullet bullet = new Bullet(direction, attack * 10);
         getWorld().addObject(bullet, getX(), getY());
     }
 

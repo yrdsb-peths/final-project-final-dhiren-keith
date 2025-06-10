@@ -2,10 +2,12 @@ import greenfoot.*;
 
 public class Bullet extends Actor {
     private int speed = 10;
+    private int damage;
     private String direction;
 
-    public Bullet(String direction) {
+    public Bullet(String direction, int damage) {
         this.direction = direction;
+        this.damage = damage;
 
         GreenfootImage image = new GreenfootImage("bullet.png");
         image.scale(20, 10);
@@ -59,7 +61,7 @@ public class Bullet extends Actor {
     private boolean checkCollision() {
         Enemy enemy = (Enemy)getOneIntersectingObject(Enemy.class);
         if (enemy != null) {
-            enemy.takeDamage(1);
+            enemy.takeDamage(damage);
             getWorld().removeObject(this);
             return true; // Bullet has been removed
         }

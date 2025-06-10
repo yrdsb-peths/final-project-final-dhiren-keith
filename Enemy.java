@@ -12,14 +12,14 @@ public class Enemy extends Actor {
     private int cooldownTimer = 0;
     
 
-    public Enemy(int level, int maxHealth, String name, int defense, int attack, int speed) {
-        this.level = level;
-        this.maxHealth = maxHealth;
+    public Enemy(int waveNumber) {
+        this.level = waveNumber / 2;
+        this.maxHealth = 40 + (level * 5);
         this.currHealth = maxHealth;
-        this.name = name;
-        this.defense = defense;
-        this.attack = attack;
-        this.speed = speed;
+        this.name = "GOON";
+        this.defense = 0;
+        this.attack = 25 + (level / 2);
+        this.speed = 2 + (level / 3);
     }
 
 
