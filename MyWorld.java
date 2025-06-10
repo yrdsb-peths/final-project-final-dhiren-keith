@@ -37,7 +37,6 @@ public class MyWorld extends World {
                         Hero hero = getHero();
                         if (hero != null) {
                             hero.levelUp();
-                            showText("Level: " + hero.getLevel(), 100, 30);
                         }
                         startWave();
                     }
@@ -97,7 +96,7 @@ public class MyWorld extends World {
         addObject(new Label("World Five: Level 80", "Arial", 20), 500, 50);
         addObject(new SelectWorldFive(), 500, 100);
         
-        addObject(new Label("Current Level: " + currentLevel, "Arial", 24), 300, 200);
+        addObject(new Label("Current Level: " + currentLevel, "Arial", 24), 100, 370);
     }
 
     public Hero getHero() {
