@@ -24,6 +24,10 @@ public class MyWorld extends World {
     public void act() {
         if (getClass() == MyWorld.class) return;
         showText("Level: " + hero.getLevel(), 75, 30);
+        if(getClass() == WorldFive.class && enemiesRemaining == 0 && waveNumber >= maxWaves) {
+            Greenfoot.setWorld(new WinScreen());
+            return;
+        }
         if (enemiesRemaining == 0) {
             if (waveNumber >= maxWaves) {
                 Greenfoot.setWorld(new MyWorld(hero));
