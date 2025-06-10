@@ -15,6 +15,7 @@ public class WorldOne extends MyWorld {
     public void act() {
         if (!gameStarted) {
             prepare(); 
+            startWave();
             gameStarted = true;
         }
         super.act(); // handle wave system

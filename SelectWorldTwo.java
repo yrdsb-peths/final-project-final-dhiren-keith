@@ -1,42 +1,26 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * Write a description of class SelectWorldTwo here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-public class SelectWorldTwo extends Actor
-{
-    /**
-     * Act - do whatever the SelectWorldTwo wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+public class SelectWorldTwo extends Actor {
     public int persistentLevel;
-    public SelectWorldTwo() 
-    {
+
+    public SelectWorldTwo() {
         GreenfootImage image = new GreenfootImage("2.png");
-        image.scale(75, 75);                
-        setImage(image);                    
+        image.scale(75, 75);
+        setImage(image);
     }
-    
-    public int getLevel()
-    {
-        return persistentLevel;
-    }
-    public void act()
-    {
-        if(Greenfoot.mouseClicked(this))
-        {
-            if(persistentLevel == 25)
-            {
-               Greenfoot.setWorld(new WorldTwo()); 
-               
-            }
-            else
-            {
-                Label label = new Label("Level not high enough for this world","Arial",30);
-                
+
+
+    public void act() {
+        if (Greenfoot.mouseClicked(this)) {
+            int currentLevel = Hero.getPersistentLevel();
+            if (currentLevel == 20) {
+            WorldTwo worldTwo = new WorldTwo();
+            Greenfoot.setWorld(worldTwo); // triggers act() in WorldOne
+            } else {
+                getWorld().showText("World Two is only for level 20! Current level: " + currentLevel, 
+                getWorld().getWidth()/2, getWorld().getHeight()/2);
+                Greenfoot.delay(120);
+                getWorld().showText("", getWorld().getWidth()/2, getWorld().getHeight()/2);
             }
         }
     }
