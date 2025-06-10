@@ -13,14 +13,15 @@ public class SelectWorldFive extends Actor {
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             int currentLevel = Hero.getPersistentLevel();
-            if (currentLevel == 20) {
+            if (currentLevel == 80) {
             WorldFive worldFive = new WorldFive();
             Greenfoot.setWorld(worldFive); // triggers act() in WorldOne
             } else {
-                getWorld().showText("World Five is only for level 80! Current level: " + currentLevel, 
-                getWorld().getWidth()/2, getWorld().getHeight()/2);
+                int x = getWorld().getWidth() / 2;
+                int y = getWorld().getHeight() -30;
+                getWorld().showText("World Five is only for level 80! Current level: " + currentLevel, x, y);
                 Greenfoot.delay(120);
-                getWorld().showText("", getWorld().getWidth()/2, getWorld().getHeight()/2);
+                getWorld().showText("", x, y);
             }
         }
     }

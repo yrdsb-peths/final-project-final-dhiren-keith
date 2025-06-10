@@ -16,8 +16,8 @@ public class MyWorld extends World {
 
     public MyWorld() {
         super(600, 400, 1);
-        Hero.resetPersistentLevel();
         setBackground("space.jpg");
+        Hero.resetPersistentLevel();
         setWorlds();
     }
 
@@ -37,7 +37,6 @@ public class MyWorld extends World {
                         Hero hero = getHero();
                         if (hero != null) {
                             hero.levelUp();
-                            showText("Level: " + hero.getLevel(), 100, 30);
                         }
                         startWave();
                     }

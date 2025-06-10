@@ -15,7 +15,7 @@ public class WorldThree extends MyWorld
      */
     public WorldThree()
     {    
-        super();
+        super(new Hero());
         GreenfootImage image = new GreenfootImage("bg3.jpg");  
         image.scale(600, 400);
         setBackground(image);  

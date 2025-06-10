@@ -4,7 +4,7 @@ public class WorldOne extends MyWorld {
     private boolean gameStarted = false;
 
     public WorldOne() {
-        super();
+        super(new Hero());
         GreenfootImage image = new GreenfootImage("bg1.jpg");
         image.scale(600, 400);
         setBackground(image);

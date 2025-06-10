@@ -17,10 +17,11 @@ public class SelectWorldOne extends Actor {
             WorldOne worldOne = new WorldOne();
             Greenfoot.setWorld(worldOne); // triggers act() in WorldOne
             } else {
-                getWorld().showText("World One is only for level 0! Current level: " + currentLevel, 
-                getWorld().getWidth()/2, getWorld().getHeight()/2);
+                int x = getWorld().getWidth() / 2;
+                int y = getWorld().getHeight() -30;
+                getWorld().showText("World One is only for level 0! Current level: " + currentLevel, x, y);
                 Greenfoot.delay(120);
-                getWorld().showText("", getWorld().getWidth()/2, getWorld().getHeight()/2);
+                getWorld().showText("", x, y);
             }
         }
     }
