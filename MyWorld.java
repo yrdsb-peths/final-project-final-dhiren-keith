@@ -9,6 +9,7 @@ public class MyWorld extends World {
 
     public MyWorld(Hero hero) {
         super(600, 400, 1);
+        setBackground("space.jpg");
         this.hero = hero;
         setWorlds();
     }
@@ -16,6 +17,7 @@ public class MyWorld extends World {
     public MyWorld() {
         super(600, 400, 1);
         Hero.resetPersistentLevel();
+        setBackground("space.jpg");
         setWorlds();
     }
 
@@ -34,7 +36,8 @@ public class MyWorld extends World {
                         waveNumber++;
                         Hero hero = getHero();
                         if (hero != null) {
-                            hero.onWaveCleared();
+                            hero.levelUp();
+                            showText("Level: " + hero.getLevel(), 100, 30);
                         }
                         startWave();
                     }
@@ -46,8 +49,7 @@ public class MyWorld extends World {
     public void prepare() {
         if (hero == null) {
             hero = new Hero();
-        }
-        addObject(hero, getWidth() / 2, getHeight() / 2);
+        }         addObject(hero, getWidth() / 2, getHeight() / 2);
         
     }
 
@@ -70,7 +72,7 @@ public class MyWorld extends World {
                 y = getHeight() + 50;
             }
 
-            Enemy goon = new Enemy(waveNumber, 1, "GOON", 0, 1000);
+            Enemy goon = new Enemy(waveNumber, 1, "GOON", 0, 20, 2);
             addObject(goon, x, y);
         }
         enemiesRemaining = numberOfEnemies;

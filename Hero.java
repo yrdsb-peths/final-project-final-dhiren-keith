@@ -1,4 +1,3 @@
-
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
@@ -9,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version (a version number or a date)
  */
 
-public class Hero extends Actor{
+public class Hero extends Actor {
     private static int persistentLevel = 0;
     private static boolean initialized = false;
     private int level; 
@@ -132,19 +131,14 @@ public class Hero extends Actor{
     }
 
     public void levelUp() {
-        level+=5;
+        level+=1;
         maxHealth += 10;
         currHealth = maxHealth;
         attack++;
         defense++;
         speed++;
-        persistentLevel = level;
     }
     
-    public void onWaveCleared()
-    {
-        levelUp();
-    }
 }
 
 
