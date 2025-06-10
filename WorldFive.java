@@ -15,7 +15,7 @@ public class WorldFive extends MyWorld
      */
     public WorldFive()
     {    
-        super();
+        super(new Hero());
         GreenfootImage image = new GreenfootImage("bg5.jpg");  
         image.scale(600, 400);
         setBackground(image);  

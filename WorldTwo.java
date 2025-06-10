@@ -15,7 +15,7 @@ public class WorldTwo extends MyWorld
      */
     public WorldTwo()
     {    
-        super();
+        super(new Hero());
         GreenfootImage image = new GreenfootImage("bg2.jpg");  
         image.scale(600, 400);
         setBackground(image);  

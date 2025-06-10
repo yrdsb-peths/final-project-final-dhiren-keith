@@ -17,10 +17,11 @@ public class SelectWorldTwo extends Actor {
             WorldTwo worldTwo = new WorldTwo();
             Greenfoot.setWorld(worldTwo); // triggers act() in WorldOne
             } else {
-                getWorld().showText("World Two is only for level 20! Current level: " + currentLevel, 
-                getWorld().getWidth()/2, getWorld().getHeight()/2);
+                int x = getWorld().getWidth() / 2;
+                int y = getWorld().getHeight() -30;
+                getWorld().showText("World Two is only for level 20! Current level: " + currentLevel, x, y);
                 Greenfoot.delay(120);
-                getWorld().showText("", getWorld().getWidth()/2, getWorld().getHeight()/2);
+                getWorld().showText("", x, y);
             }
         }
     }
