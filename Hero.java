@@ -22,7 +22,7 @@ public class Hero extends Actor{
 
     public Hero() {
         this.level = level;
-        this.maxHealth = 100;
+        this.maxHealth = 500;
         this.currHealth = maxHealth; 
         this.defense = 1;
         this.attack = 1;
@@ -123,9 +123,7 @@ public class Hero extends Actor{
         attack++;
         defense++;
         speed++;
-    }
-    
-
+    }    
 }
 
 

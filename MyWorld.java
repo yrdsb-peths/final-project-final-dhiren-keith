@@ -48,7 +48,8 @@ public class MyWorld extends World {
         if (hero == null) {
             hero = new Hero();
         }         addObject(hero, getWidth() / 2, getHeight() / 2);
-        
+        HealthBar healthBar = new HealthBar(hero);
+        addObject(healthBar, hero.getX(), hero.getY() - 20);
     }
 
     private void startWave() {
