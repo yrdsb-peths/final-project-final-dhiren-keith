@@ -1,5 +1,11 @@
 import greenfoot.*;
-
+/**
+ * MyWorld - Base world that contains the world selection screen and wave logic.
+ * Handles spawning of enemies, tracking levels, and player health bar display.
+ * 
+ * @authors Keith and Dhiren  
+ * @version June 9, 2025
+ */
 public class MyWorld extends World {
     protected Hero hero;
     private int waveNumber = 1;

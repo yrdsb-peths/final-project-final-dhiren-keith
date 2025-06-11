@@ -1,10 +1,12 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
 /**
- * Write a description of class Bar here.
+ * HealthBar - Displays the Hero's current health visually as a bar.
+ * Follows the Hero and updates to reflect changes in health.
+ * Shows a red bar over a gray background to indicate remaining health.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Keith
+ * @version June 9, 2025
  */
 public class HealthBar extends Actor {
     private Hero hero;

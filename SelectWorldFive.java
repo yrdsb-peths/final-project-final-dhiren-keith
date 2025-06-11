@@ -1,5 +1,13 @@
 import greenfoot.*;
 
+/**
+ * SelectWorldFive - Allows player to select World Five if the Hero is at level 80.
+ * Shows a message if the player's level is not 80.
+ * Displays a clickable 75x75 image of the number "5".
+ * 
+ * @author Keith
+ * @version June 9, 2025
+ */
 public class SelectWorldFive extends Actor {
     public int persistentLevel;
 
@@ -9,13 +17,12 @@ public class SelectWorldFive extends Actor {
         setImage(image);
     }
 
-
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             int currentLevel = Hero.getPersistentLevel();
             if (currentLevel == 80) {
-            WorldFive worldFive = new WorldFive();
-            Greenfoot.setWorld(worldFive); // triggers act() in WorldOne
+                WorldFive worldFive = new WorldFive();
+                Greenfoot.setWorld(worldFive);
             } else {
                 int x = getWorld().getWidth() / 2;
                 int y = getWorld().getHeight() / 2;

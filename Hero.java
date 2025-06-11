@@ -1,7 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The Hero class represents the player character.
+ * The Hero class represents the player-controlled character. It can move,
+ * shoot in multiple directions, level up, and track persistent stats such as health and attack.
+ * Leveling up improves stats and unlocks abilities like Piercing Shot.
+ * 
+ * @author Keith and Dhiren
+ * @version June 9, 2025
  */
 public class Hero extends Actor {
     private static int persistentLevel = 0;
@@ -29,6 +34,11 @@ public class Hero extends Actor {
     public void act() {
         checkKeys();
         shootTimer++;
+
+        // Cheat key: press "l" to level up
+        if (Greenfoot.isKeyDown("l")) {
+            levelUp();
+        }
     }
 
     private void checkKeys() {
