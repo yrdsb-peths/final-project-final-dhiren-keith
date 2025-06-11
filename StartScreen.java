@@ -12,6 +12,8 @@ public class StartScreen extends World {
     public StartScreen() {
         super(600, 400, 1); // Set world size
         drawScreen(); // Draw menu graphics
+        MyWorld.piercingUnlocked = false;
+        Hero.persistentLevel = 0;
     }
     /**
      *  Draws the title and instructions on the screen

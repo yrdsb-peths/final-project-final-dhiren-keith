@@ -44,6 +44,8 @@ public class MyWorld extends World {
         super(600, 400, 1);
         setBackground("space.jpg");
         Hero.resetPersistentLevel();
+        tripleUnlocked = false;
+        piercingUnlocked = false;
         setWorlds();
     }
 
