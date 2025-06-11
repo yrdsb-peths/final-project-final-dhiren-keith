@@ -1,28 +1,24 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;
 
-/**
- * The Hero class represents the player-controlled character. It can move,
- * shoot in multiple directions, level up, and track persistent stats such as health and attack.
- * Leveling up improves stats and unlocks abilities like Piercing Shot.
- * 
- * @author Keith and Dhiren
- * @version June 9, 2025
- */
 public class Hero extends Actor {
+
     GreenfootImage[] heroRight = new GreenfootImage[10];
     GreenfootImage[] heroLeft = new GreenfootImage[10];
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
     private static int persistentLevel = 0;
-    private int level; 
+    private int level;
     private int maxHealth;
     private int currHealth;
     private int defense;
     private int attack;
     private int speed;
-    
+
     private double shootDelay;
     private int shootTimer = 0;
+
+    
+
     int imageIndex = 0;
     public void animateHero()
     {
@@ -63,12 +59,13 @@ public class Hero extends Actor {
         setImage(heroRight[0]);
         this.level = persistentLevel;
         this.maxHealth = 100 + (level / 5) * 10;
-        this.currHealth = maxHealth; 
+        this.currHealth = maxHealth;
         this.defense = 1 + (level / 5);
         this.attack = 1 + (level / 5);
         this.speed = 3 + (level / 10);
+        
 
-        updateShootDelay(); // Set shoot delay based on level
+        updateShootDelay();
     }
 
     public void act() {
@@ -98,11 +95,10 @@ public class Hero extends Actor {
             setLocation(getX(), getY() + speed);
         }
 
-        // Shoot in the direction of the arrow keys
         if (shootTimer >= shootDelay) {
             if (Greenfoot.isKeyDown("left")) {
                 shoot("left");
-                shootTimer = 0; 
+                shootTimer = 0;
             } else if (Greenfoot.isKeyDown("right")) {
                 shoot("right");
                 shootTimer = 0;
@@ -117,7 +113,21 @@ public class Hero extends Actor {
     }
 
     private void shoot(String direction) {
-        Bullet bullet = new Bullet(direction, attack * 10);
+        World world = getWorld();
+
+        if (MyWorld.tripleUnlocked) {
+            // Fire 3 bullets: center, offset left, offset right
+            shootSingle(direction, 0);
+            shootSingle(direction, 10);
+            shootSingle(direction, -10);
+        } else {
+            shootSingle(direction, 0);
+        }
+    }
+
+    private void shootSingle(String direction, int angleOffset) {
+        Bullet bullet = new Bullet(direction, attack * 5, angleOffset);
+        bullet.setRotation(bullet.getRotation() + angleOffset);
         getWorld().addObject(bullet, getX(), getY());
     }
 
@@ -181,7 +191,8 @@ public class Hero extends Actor {
         speed++;
         heal(maxHealth);
         persistentLevel = level;
-        updateShootDelay(); // Recalculate shoot delay
+
+        updateShootDelay();
 
         if (level >= 20 && !MyWorld.piercingUnlocked) {
             MyWorld.piercingUnlocked = true;
@@ -189,6 +200,14 @@ public class Hero extends Actor {
             unlockLabel.setFillColor(Color.YELLOW);
             unlockLabel.setLineColor(Color.BLACK);
             getWorld().addObject(unlockLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4);
+        }
+
+        if (level >= 40 && !MyWorld.tripleUnlocked) {
+            MyWorld.tripleUnlocked = true;
+            Label tripleLabel = new Label("Triple Shot Unlocked!", "Arial", 36);
+            tripleLabel.setFillColor(Color.ORANGE);
+            tripleLabel.setLineColor(Color.BLACK);
+            getWorld().addObject(tripleLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4 + 40);
         }
     }
 
@@ -199,5 +218,10 @@ public class Hero extends Actor {
 
         double progress = Math.min(level / maxLevel, 1.0);
         shootDelay = baseDelay - (baseDelay - minDelay) * progress;
+    }
+
+    public static void levelUpPersistent(int amount) {
+        persistentLevel += amount;
+        if (persistentLevel > 80) persistentLevel = 80;
     }
 }
