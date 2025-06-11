@@ -6,6 +6,7 @@ public class MyWorld extends World {
     private int enemiesRemaining = 0;
     private int waveDelayTimer = 0;
     private final int maxWaves = 5;
+    public static boolean piercingUnlocked = false; 
 
     public MyWorld(Hero hero) {
         super(600, 400, 1);
@@ -104,6 +105,7 @@ public class MyWorld extends World {
         
         addObject(new Label("Current Level: " + currentLevel, "Arial", 24), 100, 370);
     }
+    
 
     public Hero getHero() {
         return hero;
