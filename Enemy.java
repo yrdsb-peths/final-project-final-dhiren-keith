@@ -1,5 +1,11 @@
 import greenfoot.*;
-
+/**
+ * Represents an enemy character that moves toward the hero, attacks, and displays a health bar.
+ * Enemy stats scale based on the current wave level.
+ * 
+ * @author Keith and Dhiren
+ * @version June 9, 2025
+ */
 public class Enemy extends Actor {
     GreenfootImage[] enemyRight = new GreenfootImage[17];
     GreenfootImage[] enemyLeft = new GreenfootImage[17];
@@ -58,7 +64,7 @@ public class Enemy extends Actor {
         animationTimer.mark();
         setImage(enemyRight[0]);
         this.level = waveNumber / 2;
-        this.maxHealth = 40 + (level * 5);
+        this.maxHealth = 40 + (level * 15);
         this.currHealth = maxHealth;
         this.name = "GOON";
         this.defense = 0;

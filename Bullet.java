@@ -1,5 +1,13 @@
 import greenfoot.*;
 
+/**
+ * Bullet - Represents a projectile fired by the player.
+ * Moves in a specified direction and deals damage to enemies.
+ * Supports piercing shots if enabled in MyWorld.
+ * 
+ * @author Keith
+ * @version June 9, 2025
+ */
 public class Bullet extends Actor {
     private int speed = 10;
     private int damage;
@@ -62,11 +70,11 @@ public class Bullet extends Actor {
         Enemy enemy = (Enemy)getOneIntersectingObject(Enemy.class);
         if (enemy != null) {
             enemy.takeDamage(damage);
-            if(!MyWorld.piercingUnlocked){
+            if (!MyWorld.piercingUnlocked) {
                 getWorld().removeObject(this);
             }
-            return true; 
+            return true;
         }
-        return false; 
+        return false;
     }
 }

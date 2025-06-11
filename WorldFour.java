@@ -1,20 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WorldFour here.
+ * WorldFour is the fourth game level with its unique background and setup.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Keith & Dhiren
+ * @version June 9, 2025
  */
-public class WorldFour extends MyWorld
-{
-
-    /**
-     * Constructor for objects of class WorldFour.
-     * 
-     */
-    public WorldFour()
-    {    
+public class WorldFour extends MyWorld {
+    public WorldFour() {    
         super(new Hero());
         GreenfootImage image = new GreenfootImage("bg4.jpg");  
         image.scale(600, 400);
