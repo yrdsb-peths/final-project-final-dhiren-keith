@@ -138,7 +138,7 @@ public class MyWorld extends World {
                 y = getHeight() + 50;
             }
 
-            Enemy goon = new Enemy(heroLevel / 4);
+            Enemy goon = new Enemy(heroLevel / 2);
             addObject(goon, x, y);
         }
 

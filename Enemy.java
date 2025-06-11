@@ -55,12 +55,15 @@ public class Enemy extends Actor {
         this.maxHealth = 15 + (level * 15);
         this.defense = Math.max(1, level * 2);
         this.attack = 25 + (level / 2);
-        this.speed = 2 + (level / 3);
+        this.speed = 2 + (level / 3); // 3 too fast
+        if(this.speed > 85){
+            this.speed = 85;
+        }
     
         // BIGGER BOOST for level 20 and above
         if (Hero.persistentLevel >= 20) {
-            this.maxHealth *= 2;      // Big jump in health (10x)
-            this.defense *= 2;         // Still 5x defense
+            this.maxHealth *= 3;      // Big jump in health (3x)
+            this.defense *= 2;         //  2x defense
         }
     
         this.currHealth = maxHealth;
