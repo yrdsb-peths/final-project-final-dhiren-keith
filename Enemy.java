@@ -1,4 +1,5 @@
 import greenfoot.*;
+
 /**
  * Represents an enemy character that moves toward the hero, attacks, and displays a health bar.
  * Enemy stats scale based on the current wave level.
@@ -22,56 +23,62 @@ public class Enemy extends Actor {
     private int cooldownTimer = 0;
     private EnemyHealthBar healthBar;
 
-
     int imageIndex = 0;
-    public void animateEnemy()
-    {
-        if(animationTimer.millisElapsed() < 100)
-        {
+
+    public void animateEnemy() {
+        if(animationTimer.millisElapsed() < 100) {
             return;
         }
         animationTimer.mark();
-        if(facing.equals("right"))
-        {
-            
+        if(facing.equals("right")) {
             setImage(enemyRight[imageIndex]);
             imageIndex = (imageIndex + 1) % enemyRight.length;
-        }
-        else
-        {
+        } else {
             setImage(enemyLeft[imageIndex]);
             imageIndex = (imageIndex + 1) % enemyLeft.length;
         }
     }
     
     public Enemy(int waveNumber) {
-        for(int i = 0; i < enemyRight.length; i++)
-        {
+        for(int i = 0; i < enemyRight.length; i++) {
             enemyRight[i] = new GreenfootImage("images/enemy/enemy" + i + ".png");
             enemyRight[i].scale(50,50);
         }
-
-  
-        for(int i = 0; i < enemyLeft.length; i++)
-        {
+    
+        for(int i = 0; i < enemyLeft.length; i++) {
             enemyLeft[i] = new GreenfootImage("images/enemy/enemy" + i + ".png");
             enemyLeft[i].scale(50,50);
             enemyLeft[i].mirrorHorizontally();
             enemyLeft[i].mirrorVertically();
         }
-
-        
+    
         animationTimer.mark();
         setImage(enemyRight[0]);
+    
         this.level = waveNumber / 2;
-        this.maxHealth = 40 + (level * 15);
-        this.currHealth = maxHealth;
-        this.name = "GOON";
-        this.defense = 0;
+    
+        // Base stats
+        this.maxHealth = 15 + (level * 15);
+        this.defense = Math.max(1, level * 2);
         this.attack = 25 + (level / 2);
         this.speed = 2 + (level / 3);
+    
+        // BIGGER BOOST for level 20 and above
+        if (level >= 20) {
+            this.maxHealth *= 10;      // Big jump in health (10x)
+            this.defense *= 5;         // Still 5x defense
+            this.attack *= 2;          // Double attack
+            this.speed += 3;           // Speed bonus
+        }
+    
+        this.currHealth = maxHealth;
+        this.name = "GOON";
+    
         this.healthBar = new EnemyHealthBar(this);
     }
+
+
+
 
     public void addedToWorld(World world) {
         world.addObject(healthBar, getX(), getY() - 20);
@@ -79,19 +86,12 @@ public class Enemy extends Actor {
 
     public void act() {
         Hero hero = ((MyWorld) getWorld()).getHero();
-        if (hero !=null)
-        {
-            if (hero.getX() > getX())
-            {
-                facing = "right";
-            }
-            else
-            {
-                facing = "left";
-            }
+        if (hero != null) {
+            facing = (hero.getX() > getX()) ? "right" : "left";
         }
         
-        moveTowardsHero(); 
+        moveTowardsHero();
+
         if (cooldownTimer > 0) {
             cooldownTimer--;
         } else {
@@ -118,7 +118,10 @@ public class Enemy extends Actor {
     }
 
     public void takeDamage(int damage) {
-        int actualDamage = Math.max(0, damage - defense);
+        int actualDamage = damage - defense;
+        if (actualDamage <= 0) {
+            actualDamage = 1;  // always do at least 1 damage
+        }
         currHealth -= actualDamage;
 
         if (currHealth <= 0) {

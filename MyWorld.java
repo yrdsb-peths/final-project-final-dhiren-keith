@@ -1,4 +1,5 @@
 import greenfoot.*;
+
 /**
  * MyWorld - Base world that contains the world selection screen and wave logic.
  * Handles spawning of enemies, tracking levels, and player health bar display.
@@ -13,6 +14,8 @@ public class MyWorld extends World {
     private int waveDelayTimer = 0;
     private final int maxWaves = 5;
     public static boolean piercingUnlocked = false; 
+    public static boolean tripleUnlocked = false;
+    private Label levelDisplay;
 
     public MyWorld(Hero hero) {
         super(600, 400, 1);
@@ -29,12 +32,24 @@ public class MyWorld extends World {
     }
 
     public void act() {
+        // Allow leveling up at the menu screen even if hero isn't spawned
+        if (Greenfoot.isKeyDown("l") && waveDelayTimer == 0) {
+            Hero.levelUpPersistent(5); // Custom method you'll need in Hero
+            waveDelayTimer = 20; // Small delay to prevent rapid firing
+            levelDisplay.setValue("Current Level: " + Hero.getPersistentLevel());
+        } else if (waveDelayTimer > 0) {
+            waveDelayTimer--; // Reduce cooldown
+        }
+
         if (getClass() == MyWorld.class) return;
+
         showText("Level: " + hero.getLevel(), 75, 30);
-        if(getClass() == WorldFive.class && enemiesRemaining == 0 && waveNumber >= maxWaves) {
+
+        if (getClass() == WorldFive.class && enemiesRemaining == 0 && waveNumber >= maxWaves) {
             Greenfoot.setWorld(new WinScreen());
             return;
         }
+
         if (enemiesRemaining == 0) {
             if (waveNumber >= maxWaves) {
                 Greenfoot.setWorld(new MyWorld(hero));
@@ -45,7 +60,6 @@ public class MyWorld extends World {
                     waveDelayTimer--;
                     if (waveDelayTimer == 0) {
                         waveNumber++;
-                        Hero hero = getHero();
                         if (hero != null) {
                             hero.levelUp();
                         }
@@ -59,7 +73,8 @@ public class MyWorld extends World {
     public void prepare() {
         if (hero == null) {
             hero = new Hero();
-        }         addObject(hero, getWidth() / 2, getHeight() / 2);
+        }
+        addObject(hero, getWidth() / 2, getHeight() / 2);
         HealthBar healthBar = new HealthBar(hero);
         addObject(healthBar, hero.getX(), hero.getY() - 20);
     }
@@ -67,7 +82,7 @@ public class MyWorld extends World {
     public void startWave() {
         int numberOfEnemies = waveNumber * 3;
         int heroLevel = hero.getLevel();
-        
+
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = 0, y = 0;
             int side = Greenfoot.getRandomNumber(4);
@@ -97,7 +112,7 @@ public class MyWorld extends World {
 
     private void setWorlds() {
         int currentLevel = Hero.getPersistentLevel();
-        
+
         addObject(new Label("World One: Level 0", "Arial", 20), 100, 50);
         addObject(new SelectWorldOne(), 100, 100);
         addObject(new Label("World Two: Level 20", "Arial", 20), 200, 250);
@@ -108,10 +123,10 @@ public class MyWorld extends World {
         addObject(new SelectWorldFour(), 400, 325);
         addObject(new Label("World Five: Level 80", "Arial", 20), 500, 50);
         addObject(new SelectWorldFive(), 500, 100);
-        
-        addObject(new Label("Current Level: " + currentLevel, "Arial", 24), 100, 370);
+
+        levelDisplay = new Label("Current Level: " + currentLevel, "Arial", 24);
+        addObject(levelDisplay, 100, 370);
     }
-    
 
     public Hero getHero() {
         return hero;

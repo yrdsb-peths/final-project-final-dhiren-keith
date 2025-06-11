@@ -4,66 +4,49 @@ import greenfoot.*;
  * Bullet - Represents a projectile fired by the player.
  * Moves in a specified direction and deals damage to enemies.
  * Supports piercing shots if enabled in MyWorld.
+ * Now also supports angle offsets for triple shot.
  * 
  * @author Keith
- * @version June 9, 2025
+ * @version June 10, 2025
  */
 public class Bullet extends Actor {
     private int speed = 10;
     private int damage;
-    private String direction;
+    private double dx;
+    private double dy;
 
-    public Bullet(String direction, int damage) {
-        this.direction = direction;
+    public Bullet(String direction, int damage, int angleOffset) {
         this.damage = damage;
+
+        // Determine base angle
+        int baseAngle = switch (direction) {
+            case "left" -> 180;
+            case "right" -> 0;
+            case "up" -> 270;
+            case "down" -> 90;
+            default -> 0;
+        };
+
+        int finalAngle = baseAngle + angleOffset;
+        setRotation(finalAngle); // for bullet image
+
+        double radians = Math.toRadians(finalAngle);
+        dx = Math.cos(radians) * speed;
+        dy = Math.sin(radians) * speed;
 
         GreenfootImage image = new GreenfootImage("bullet.png");
         image.scale(20, 10);
         setImage(image);
-
-        switch (direction) {
-            case "left":
-                setRotation(180);
-                break;
-            case "right":
-                setRotation(0);
-                break;
-            case "up":
-                setRotation(270);
-                break;
-            case "down":
-                setRotation(90);
-                break;
-        }
     }
 
     public void act() {
-        moveInDirection();
-        if (checkCollision()) return; // Exit act() early if bullet was removed
+        moveInAngle();
+        if (checkCollision()) return;
         checkBounds();
     }
 
-    private void moveInDirection() {
-        switch (direction) {
-            case "left":
-                setLocation(getX() - speed, getY());
-                break;
-            case "right":
-                setLocation(getX() + speed, getY());
-                break;
-            case "up":
-                setLocation(getX(), getY() - speed);
-                break;
-            case "down":
-                setLocation(getX(), getY() + speed);
-                break;
-        }
-    }
-
-    private void checkBounds() {
-        if (isAtEdge()) {
-            getWorld().removeObject(this);
-        }
+    private void moveInAngle() {
+        setLocation((int)(getX() + dx), (int)(getY() + dy));
     }
 
     private boolean checkCollision() {
@@ -76,5 +59,11 @@ public class Bullet extends Actor {
             return true;
         }
         return false;
+    }
+
+    private void checkBounds() {
+        if (isAtEdge()) {
+            getWorld().removeObject(this);
+        }
     }
 }
