@@ -11,13 +11,16 @@ public class WinScreen extends World {
     GreenfootSound winSound = new GreenfootSound("winSound.mp3");
     public WinScreen() {    
         super(600, 400, 1);
-        winSound.play();
+        winSound.play(); // Play winning sound
         GreenfootImage image = new GreenfootImage("win.jpg");
         image.scale(600, 400);
-        setBackground(image);
-        screenText();
+        setBackground(image); // Set win background
+        screenText(); // restart/quit text
     }
-
+    
+    /**
+     * Draw text instructions on screen
+     */
     private void screenText() {
         GreenfootImage bg = getBackground();
         bg.setColor(Color.WHITE);
@@ -28,10 +31,10 @@ public class WinScreen extends World {
 
     public void act() {
         if (Greenfoot.isKeyDown("r")) {
-            Greenfoot.setWorld(new StartScreen());
+            Greenfoot.setWorld(new StartScreen()); // If R pressed game restarts
         }
         if (Greenfoot.isKeyDown("q")) {
-            Greenfoot.stop();
+            Greenfoot.stop(); // If Q pressed game stops running
         }
     }
 }

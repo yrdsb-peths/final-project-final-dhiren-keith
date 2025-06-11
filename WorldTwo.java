@@ -12,7 +12,7 @@ public class WorldTwo extends MyWorld {
         GreenfootImage image = new GreenfootImage("bg2.jpg");  
         image.scale(600, 400);
         setBackground(image);  
-        removeObjects(getObjects(null));
-        prepare();
+        removeObjects(getObjects(null)); // Clear existing objects
+        prepare(); // Setup initial objects for WorldTwo
     }
 }

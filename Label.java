@@ -17,6 +17,9 @@ public class Label extends Actor
     private String font;
     private static final Color transparent = new Color(0,0,0,0);
 
+    /**
+     *  Constructor initializes the labe with text, font, and font size
+     */
     public Label(String value, String font, int fontSize)
     {
         this.font = font;
