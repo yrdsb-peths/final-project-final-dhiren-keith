@@ -15,14 +15,17 @@ public class HealthBar extends Actor {
 
     public HealthBar(Hero hero) {
         this.hero = hero;
-        updateImage();
+        updateImage(); // Draw initial health bar
     }
 
     public void act() {
-        updateImage();
-        followHero();
+        updateImage(); // Refresh health bar
+        followHero(); // Stay above the Hero
     }
 
+    /**
+     *  Updates the health bar's visual based on current health
+     */
     private void updateImage() {
         int health = hero.getCurrentHealth();
         int maxHealth = hero.getMaxHealth();
@@ -36,6 +39,9 @@ public class HealthBar extends Actor {
         setImage(image);
     }
 
+    /**
+     *  Moves the health bar to stay above Hero
+     */
     private void followHero() {
         if (getWorld() != null && hero.getWorld() != null) {
             setLocation(hero.getX(), hero.getY() - 20);

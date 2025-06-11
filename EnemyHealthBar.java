@@ -14,22 +14,25 @@ public class EnemyHealthBar extends Actor {
 
     public EnemyHealthBar(Enemy enemy) {
         this.enemy = enemy;
-        updateImage();
+        updateImage(); // Draw initial health bar
     }
 
     public void act() {
-        updateImage();
+        updateImage(); // Update every frame
     }
-
+    
+    /**
+     *  Updates the visual bar based on current health
+     */
     private void updateImage() {
         int current = enemy.getHealth();
         int max = enemy.getMaxHealth();
         int barWidth = (int)((double) current / max * width);
 
         GreenfootImage image = new GreenfootImage(width, height);
-        image.setColor(Color.GRAY);
+        image.setColor(Color.GRAY); // Background
         image.fillRect(0, 0, width, height);
-        image.setColor(Color.RED);
+        image.setColor(Color.RED); // Health amount
         image.fillRect(0, 0, barWidth, height);
         setImage(image);
     }
