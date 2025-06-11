@@ -7,6 +7,10 @@ import greenfoot.*;
  * @version June 9, 2025
  */
 public class Enemy extends Actor {
+    GreenfootImage[] enemyRight = new GreenfootImage[17];
+    GreenfootImage[] enemyLeft = new GreenfootImage[17];
+    String facing = "right";
+    SimpleTimer animationTimer = new SimpleTimer();
     private int level; 
     private int maxHealth;
     private int currHealth;
@@ -18,7 +22,47 @@ public class Enemy extends Actor {
     private int cooldownTimer = 0;
     private EnemyHealthBar healthBar;
 
+
+    int imageIndex = 0;
+    public void animateEnemy()
+    {
+        if(animationTimer.millisElapsed() < 100)
+        {
+            return;
+        }
+        animationTimer.mark();
+        if(facing.equals("right"))
+        {
+            
+            setImage(enemyRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % enemyRight.length;
+        }
+        else
+        {
+            setImage(enemyLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % enemyLeft.length;
+        }
+    }
+    
     public Enemy(int waveNumber) {
+        for(int i = 0; i < enemyRight.length; i++)
+        {
+            enemyRight[i] = new GreenfootImage("images/enemy/enemy" + i + ".png");
+            enemyRight[i].scale(50,50);
+        }
+
+  
+        for(int i = 0; i < enemyLeft.length; i++)
+        {
+            enemyLeft[i] = new GreenfootImage("images/enemy/enemy" + i + ".png");
+            enemyLeft[i].scale(50,50);
+            enemyLeft[i].mirrorHorizontally();
+            enemyLeft[i].mirrorVertically();
+        }
+
+        
+        animationTimer.mark();
+        setImage(enemyRight[0]);
         this.level = waveNumber / 2;
         this.maxHealth = 40 + (level * 15);
         this.currHealth = maxHealth;
@@ -34,8 +78,20 @@ public class Enemy extends Actor {
     }
 
     public void act() {
-        moveTowardsHero();
-
+        Hero hero = ((MyWorld) getWorld()).getHero();
+        if (hero !=null)
+        {
+            if (hero.getX() > getX())
+            {
+                facing = "right";
+            }
+            else
+            {
+                facing = "left";
+            }
+        }
+        
+        moveTowardsHero(); 
         if (cooldownTimer > 0) {
             cooldownTimer--;
         } else {
@@ -46,6 +102,8 @@ public class Enemy extends Actor {
         if (healthBar != null && getWorld() != null) {
             healthBar.setLocation(getX(), getY() - 20);
         }
+        
+        animateEnemy();
     }
 
     private void moveTowardsHero() {
