@@ -11,7 +11,10 @@ public class Enemy extends Actor {
     GreenfootImage[] enemyRight = new GreenfootImage[17];
     GreenfootImage[] enemyLeft = new GreenfootImage[17];
     String facing = "right";
+    
     SimpleTimer animationTimer = new SimpleTimer();
+    int imageIndex = 0;
+    
     private int level; 
     private int maxHealth;
     private int currHealth;
@@ -19,37 +22,28 @@ public class Enemy extends Actor {
     private int defense;
     private int attack;
     private int speed;
+    
     private int attackCooldown = 30;
     private int cooldownTimer = 0;
+    
     private EnemyHealthBar healthBar;
 
-    int imageIndex = 0;
-
-    public void animateEnemy() {
-        if(animationTimer.millisElapsed() < 100) {
-            return;
-        }
-        animationTimer.mark();
-        if(facing.equals("right")) {
-            setImage(enemyRight[imageIndex]);
-            imageIndex = (imageIndex + 1) % enemyRight.length;
-        } else {
-            setImage(enemyLeft[imageIndex]);
-            imageIndex = (imageIndex + 1) % enemyLeft.length;
-        }
-    }
-    
+    /**
+     * Constructor that sets up enemy stats and animations
+     */
     public Enemy(int waveNumber) {
+        // Load right facing sprites
         for(int i = 0; i < enemyRight.length; i++) {
             enemyRight[i] = new GreenfootImage("images/enemy/enemy" + i + ".png");
             enemyRight[i].scale(50,50);
         }
     
+        // Load left facing sprites
         for(int i = 0; i < enemyLeft.length; i++) {
             enemyLeft[i] = new GreenfootImage("images/enemy/enemy" + i + ".png");
             enemyLeft[i].scale(50,50);
             enemyLeft[i].mirrorHorizontally();
-            enemyLeft[i].mirrorVertically();
+            enemyLeft[i].mirrorVertically(); // Fix upside down issue
         }
     
         animationTimer.mark();
@@ -74,14 +68,34 @@ public class Enemy extends Actor {
     
         this.healthBar = new EnemyHealthBar(this);
     }
-
-
-
-
+    
+    /**
+     *  Animate enemy sprite
+     */
+    public void animateEnemy() {
+        if(animationTimer.millisElapsed() < 100) {
+            return;
+        }
+        animationTimer.mark();
+        if(facing.equals("right")) {
+            setImage(enemyRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % enemyRight.length;
+        } else {
+            setImage(enemyLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % enemyLeft.length;
+        }
+    }
+    
+    /**
+     *  Add health bar when added to world
+     */
     public void addedToWorld(World world) {
         world.addObject(healthBar, getX(), getY() - 20);
     }
 
+    /**
+     *  Main game loop
+     */
     public void act() {
         Hero hero = ((MyWorld) getWorld()).getHero();
         if (hero != null) {
@@ -104,6 +118,9 @@ public class Enemy extends Actor {
         animateEnemy();
     }
 
+    /**
+     *  Enemy moves towards hero
+     */
     private void moveTowardsHero() {
         World w = getWorld();
         if (w instanceof MyWorld) {
@@ -115,6 +132,9 @@ public class Enemy extends Actor {
         }
     }
 
+    /**
+     *  Enemy take damage from hero
+     */
     public void takeDamage(int damage) {
         int actualDamage = damage - defense;
         if (actualDamage <= 0) {
@@ -136,6 +156,9 @@ public class Enemy extends Actor {
         }
     }
 
+    /**
+     *  Enemy deal damage to hero
+     */
     public void dealDamage(int attack) {
         World w = getWorld();
         if (w instanceof MyWorld) {
@@ -146,6 +169,10 @@ public class Enemy extends Actor {
         }
     }
 
+    /**
+     *  Getters
+     */
+    
     public int getAttack() {
         return attack;
     }

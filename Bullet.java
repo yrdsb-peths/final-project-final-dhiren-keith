@@ -16,7 +16,7 @@ public class Bullet extends Actor {
     private double dx;
     private double dy;
 
-    // ✅ Track which enemies have been hit
+    // Track which enemies have been hit
     private HashSet<Enemy> enemiesHit = new HashSet<>();
 
     public Bullet(String direction, int damage, int angleOffset) {
@@ -42,7 +42,8 @@ public class Bullet extends Actor {
         image.scale(20, 10);
         setImage(image);
     }
-
+    
+    
     public void act() {
         moveInAngle();
         if (checkCollision()) return;
