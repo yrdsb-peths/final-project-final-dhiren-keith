@@ -16,7 +16,7 @@ public class WorldFive extends MyWorld {
         GreenfootImage image = new GreenfootImage("bg5.jpg");  
         image.scale(600, 400);
         setBackground(image);  
-        removeObjects(getObjects(null));
-        prepare();
+        removeObjects(getObjects(null)); // Clear all objects
+        prepare(); // Setup objects for this world
     }
 }

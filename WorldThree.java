@@ -12,7 +12,7 @@ public class WorldThree extends MyWorld {
         GreenfootImage image = new GreenfootImage("bg3.jpg");  
         image.scale(600, 400);
         setBackground(image);  
-        removeObjects(getObjects(null));
-        prepare();
+        removeObjects(getObjects(null)); // Remove all objects before setup
+        prepare(); // Initialize objects for WorldThree
     }
 }

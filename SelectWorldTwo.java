@@ -11,15 +11,22 @@ import greenfoot.*;
 public class SelectWorldTwo extends Actor {
     public int persistentLevel;
 
+    /*
+     * Constructor sets and scales the image for world two selector
+     */
+    
     public SelectWorldTwo() {
         GreenfootImage image = new GreenfootImage("2.png");
         image.scale(75, 75);
         setImage(image);
     }
-
+    
+    /**
+     *  Detects clicks on this selector, if level is 20 world is unlocked
+     */
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
-            int currentLevel = Hero.getPersistentLevel();
+             int currentLevel = Hero.getPersistentLevel();
             if (currentLevel == 20) {
                 WorldTwo worldTwo = new WorldTwo();
                 Greenfoot.setWorld(worldTwo); // triggers act() in WorldTwo
@@ -28,7 +35,7 @@ public class SelectWorldTwo extends Actor {
                 int y = getWorld().getHeight() / 2;
                 getWorld().showText("World Two is only for level 20! Current level: " + currentLevel, x, y);
                 Greenfoot.delay(120);
-                getWorld().showText("", x, y);
+                getWorld().showText("", x, y); // Clear the message
             }
         }
     }
