@@ -1,20 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WorldTwo here.
+ * WorldTwo is the second game level with its unique background and setup.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Keith & Dhiren
+ * @version June 9, 2025
  */
-public class WorldTwo extends MyWorld
-{
-
-    /**
-     * Constructor for objects of class WorldTwo.
-     * 
-     */
-    public WorldTwo()
-    {    
+public class WorldTwo extends MyWorld {
+    public WorldTwo() {    
         super(new Hero());
         GreenfootImage image = new GreenfootImage("bg2.jpg");  
         image.scale(600, 400);

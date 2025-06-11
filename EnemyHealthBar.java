@@ -1,5 +1,12 @@
 import greenfoot.*;
 
+/**
+ * EnemyHealthBar - Visual health bar that follows an enemy and displays its current health.
+ * Shows the proportion of health remaining with a red bar over a gray background.
+ * 
+ * @author Keith
+ * @version June 9, 2025
+ */
 public class EnemyHealthBar extends Actor {
     private Enemy enemy;
     private int width = 30;

@@ -1,5 +1,13 @@
 import greenfoot.*;
 
+/**
+ * SelectWorldThree - Allows player to select World Three if the Hero is at level 40.
+ * Shows a message if the player's level is not 40.
+ * Displays a clickable 75x75 image of the number "3".
+ * 
+ * @author Keith
+ * @version June 9, 2025
+ */
 public class SelectWorldThree extends Actor {
     public int persistentLevel;
 
@@ -9,13 +17,12 @@ public class SelectWorldThree extends Actor {
         setImage(image);
     }
 
-
     public void act() {
         if (Greenfoot.mouseClicked(this)) {
             int currentLevel = Hero.getPersistentLevel();
             if (currentLevel == 40) {
-            WorldThree worldThree = new WorldThree();
-            Greenfoot.setWorld(worldThree); // triggers act() in WorldOne
+                WorldThree worldThree = new WorldThree();
+                Greenfoot.setWorld(worldThree);
             } else {
                 int x = getWorld().getWidth() / 2;
                 int y = getWorld().getHeight() / 2;

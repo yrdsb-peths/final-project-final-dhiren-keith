@@ -1,5 +1,12 @@
 import greenfoot.*;
 
+/**
+ * The StartScreen class displays the game's main menu.
+ * It shows the title and controls, and starts the game when the user presses ENTER.
+ * 
+ * @author Keith
+ * @version June 9, 2025
+ */
 public class StartScreen extends World {
 
     public StartScreen() {
@@ -14,7 +21,7 @@ public class StartScreen extends World {
 
         bg.setColor(Color.WHITE);
         bg.setFont(new Font("Arial", true, false, 40));
-        bg.drawString("SHOOTY MCSHOOTFACE",50, 150);
+        bg.drawString("SHOOTY MCSHOOTFACE", 50, 150);
 
         bg.setFont(new Font("Arial", false, false, 24));
         bg.drawString("Press ENTER to Start", 180, 240);

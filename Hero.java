@@ -1,14 +1,18 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The Hero class represents the player character.
- * Write a description of class Hero here.
+ * The Hero class represents the player-controlled character. It can move,
+ * shoot in multiple directions, level up, and track persistent stats such as health and attack.
+ * Leveling up improves stats and unlocks abilities like Piercing Shot.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Keith and Dhiren
+ * @version June 9, 2025
  */
-
 public class Hero extends Actor {
+    GreenfootImage[] heroRight = new GreenfootImage[10];
+    GreenfootImage[] heroLeft = new GreenfootImage[10];
+    String facing = "right";
+    SimpleTimer animationTimer = new SimpleTimer();
     private static int persistentLevel = 0;
     private int level; 
     private int maxHealth;
@@ -17,29 +21,75 @@ public class Hero extends Actor {
     private int attack;
     private int speed;
     
-    private double shootDelay = 15; 
+    private double shootDelay;
     private int shootTimer = 0;
-
+    int imageIndex = 0;
+    public void animateHero()
+    {
+        if(animationTimer.millisElapsed() < 100)
+        {
+            return;
+        }
+        animationTimer.mark();
+        if(facing.equals("right"))
+        {
+            
+            setImage(heroRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % heroRight.length;
+        }
+        else
+        {
+            setImage(heroLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % heroLeft.length;
+        }
+    }
     public Hero() {
+        for(int i = 0; i < heroRight.length; i++)
+        {
+            heroRight[i] = new GreenfootImage("images/hero/hero" + i + ".png");
+            heroRight[i].scale(50,50);
+        }
+
+  
+        for(int i = 0; i < heroLeft.length; i++)
+        {
+            heroLeft[i] = new GreenfootImage("images/hero/hero" + i + ".png");
+            heroLeft[i].scale(50,50);
+            heroLeft[i].mirrorHorizontally();
+        }
+
+        
+        animationTimer.mark();
+        setImage(heroRight[0]);
         this.level = persistentLevel;
-        this.maxHealth = 100 + (level /5) * 10;
+        this.maxHealth = 100 + (level / 5) * 10;
         this.currHealth = maxHealth; 
         this.defense = 1 + (level / 5);
         this.attack = 1 + (level / 5);
         this.speed = 3 + (level / 10);
+
+        updateShootDelay(); // Set shoot delay based on level
     }
 
     public void act() {
         checkKeys();
         shootTimer++;
+        animateHero();
+        // Cheat key: press "l" to level up
+        if (Greenfoot.isKeyDown("l")) {
+            levelUp();
+        }
+
     }
 
     private void checkKeys() {
         if (Greenfoot.isKeyDown("a")) {
             move(-speed);
+            facing = "left";
         }
         if (Greenfoot.isKeyDown("d")) {
             move(speed);
+            facing = "right";
         }
         if (Greenfoot.isKeyDown("w")) {
             setLocation(getX(), getY() - speed);
@@ -49,7 +99,7 @@ public class Hero extends Actor {
         }
 
         // Shoot in the direction of the arrow keys
-       if (shootTimer >= shootDelay) {
+        if (shootTimer >= shootDelay) {
             if (Greenfoot.isKeyDown("left")) {
                 shoot("left");
                 shootTimer = 0; 
@@ -66,7 +116,6 @@ public class Hero extends Actor {
         }
     }
 
-
     private void shoot(String direction) {
         Bullet bullet = new Bullet(direction, attack * 10);
         getWorld().addObject(bullet, getX(), getY());
@@ -74,10 +123,9 @@ public class Hero extends Actor {
 
     public void takeDamage(int damage) {
         currHealth -= damage;
-        
         if (currHealth <= 0) {
             currHealth = 0;
-            Greenfoot.setWorld(new GameOver()); // Pass score if needed
+            Greenfoot.setWorld(new GameOver());
         }
     }
 
@@ -96,15 +144,15 @@ public class Hero extends Actor {
     public int getMaxHealth() {
         return maxHealth;
     }
-    
-    public int getLevel(){
+
+    public int getLevel() {
         return level;
     }
-    
+
     public static int getPersistentLevel() {
         return persistentLevel;
     }
-    
+
     public static void resetPersistentLevel() {
         persistentLevel = 0;
     }
@@ -125,7 +173,7 @@ public class Hero extends Actor {
     }
 
     public void levelUp() {
-        level+=5;
+        level += 5;
         maxHealth += 10;
         currHealth = maxHealth;
         attack++;
@@ -133,10 +181,23 @@ public class Hero extends Actor {
         speed++;
         heal(maxHealth);
         persistentLevel = level;
-        shootDelay = shootDelay / 1.2;
+        updateShootDelay(); // Recalculate shoot delay
+
+        if (level >= 20 && !MyWorld.piercingUnlocked) {
+            MyWorld.piercingUnlocked = true;
+            Label unlockLabel = new Label("Piercing Shot Unlocked!", "Arial", 36);
+            unlockLabel.setFillColor(Color.YELLOW);
+            unlockLabel.setLineColor(Color.BLACK);
+            getWorld().addObject(unlockLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4);
+        }
     }
-    
 
+    private void updateShootDelay() {
+        double baseDelay = 20.0;
+        double minDelay = 10.0;
+        double maxLevel = 80.0;
+
+        double progress = Math.min(level / maxLevel, 1.0);
+        shootDelay = baseDelay - (baseDelay - minDelay) * progress;
+    }
 }
-
-

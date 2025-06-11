@@ -1,20 +1,13 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WorldThree here.
+ * WorldThree is the third game level with its unique background and setup.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Keith & Dhiren
+ * @version June 9, 2025
  */
-public class WorldThree extends MyWorld
-{
-
-    /**
-     * Constructor for objects of class WorldThree.
-     * 
-     */
-    public WorldThree()
-    {    
+public class WorldThree extends MyWorld {
+    public WorldThree() {    
         super(new Hero());
         GreenfootImage image = new GreenfootImage("bg3.jpg");  
         image.scale(600, 400);

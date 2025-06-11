@@ -1,20 +1,17 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WorldFive here.
+ * WorldFive represents the fifth game level with a specific background.
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * @author Keith & Dhiren
+ * @version June 9, 2025
  */
-public class WorldFive extends MyWorld
-{
+public class WorldFive extends MyWorld {
 
     /**
      * Constructor for objects of class WorldFive.
-     * 
      */
-    public WorldFive()
-    {    
+    public WorldFive() {    
         super(new Hero());
         GreenfootImage image = new GreenfootImage("bg5.jpg");  
         image.scale(600, 400);

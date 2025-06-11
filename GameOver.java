@@ -1,5 +1,12 @@
 import greenfoot.*;
 
+/**
+ * GameOver displays the end screen when the player loses the game.
+ * It shows a black background with a red "GAME OVER" message.
+ * 
+ * @author Keith & Dhiren
+ * @version June 9, 2025
+ */
 public class GameOver extends World {
 
     public GameOver() {
@@ -15,19 +22,5 @@ public class GameOver extends World {
         bg.setColor(Color.RED);
         bg.setFont(new Font("Arial", true, false, 50));
         bg.drawString("GAME OVER", 150, 150);
-
-        bg.setColor(Color.WHITE);
-        bg.setFont(new Font("Arial", false, false, 24));
-        bg.drawString("Press 'R' to Restart", 180, 240);
-        bg.drawString("Press 'Q' to Quit", 200, 280);
-    }
-
-    public void act() {
-        if (Greenfoot.isKeyDown("r")) {
-            Greenfoot.setWorld(new StartScreen());
-        }
-        if (Greenfoot.isKeyDown("q")) {
-            Greenfoot.stop();
-        }
     }
 }
