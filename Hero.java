@@ -9,6 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 
 public class Hero extends Actor {
+    
     private static int persistentLevel = 0;
     private int level; 
     private int maxHealth;
