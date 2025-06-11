@@ -4,7 +4,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * The Hero class represents the player character.
  */
 public class Hero extends Actor {
-    
+    GreenfootImage[] heroRight = new GreenfootImage[10];
+    GreenfootImage[] heroLeft = new GreenfootImage[10];
+    String facing = "right";
+    SimpleTimer animationTimer = new SimpleTimer();
     private static int persistentLevel = 0;
     private int level; 
     private int maxHealth;
@@ -15,8 +18,44 @@ public class Hero extends Actor {
     
     private double shootDelay;
     private int shootTimer = 0;
-
+    int imageIndex = 0;
+    public void animateHero()
+    {
+        if(animationTimer.millisElapsed() < 100)
+        {
+            return;
+        }
+        animationTimer.mark();
+        if(facing.equals("right"))
+        {
+            
+            setImage(heroRight[imageIndex]);
+            imageIndex = (imageIndex + 1) % heroRight.length;
+        }
+        else
+        {
+            setImage(heroLeft[imageIndex]);
+            imageIndex = (imageIndex + 1) % heroLeft.length;
+        }
+    }
     public Hero() {
+        for(int i = 0; i < heroRight.length; i++)
+        {
+            heroRight[i] = new GreenfootImage("images/hero/hero" + i + ".png");
+            heroRight[i].scale(50,50);
+        }
+
+  
+        for(int i = 0; i < heroLeft.length; i++)
+        {
+            heroLeft[i] = new GreenfootImage("images/hero/hero" + i + ".png");
+            heroLeft[i].scale(50,50);
+            heroLeft[i].mirrorHorizontally();
+        }
+
+        
+        animationTimer.mark();
+        setImage(heroRight[0]);
         this.level = persistentLevel;
         this.maxHealth = 100 + (level / 5) * 10;
         this.currHealth = maxHealth; 
@@ -30,14 +69,17 @@ public class Hero extends Actor {
     public void act() {
         checkKeys();
         shootTimer++;
+        animateHero();
     }
 
     private void checkKeys() {
         if (Greenfoot.isKeyDown("a")) {
             move(-speed);
+            facing = "left";
         }
         if (Greenfoot.isKeyDown("d")) {
             move(speed);
+            facing = "right";
         }
         if (Greenfoot.isKeyDown("w")) {
             setLocation(getX(), getY() - speed);
