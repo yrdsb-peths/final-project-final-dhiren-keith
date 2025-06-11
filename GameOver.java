@@ -8,9 +8,10 @@ import greenfoot.*;
  * @version June 9, 2025
  */
 public class GameOver extends World {
-
+    GreenfootSound gameOverSound = new GreenfootSound("gameOver.mp3");
     public GameOver() {
         super(600, 400, 1);
+        gameOverSound.play();
         drawScreen();
     }
 

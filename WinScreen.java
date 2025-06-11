@@ -8,9 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @version June 9, 2025
  */
 public class WinScreen extends World {
-
+    GreenfootSound winSound = new GreenfootSound("winSound.mp3");
     public WinScreen() {    
-        super(600, 400, 1); 
+        super(600, 400, 1);
+        winSound.play();
         GreenfootImage image = new GreenfootImage("win.jpg");
         image.scale(600, 400);
         setBackground(image);
