@@ -17,53 +17,29 @@ public class Hero extends Actor {
     private double shootDelay;
     private int shootTimer = 0;
 
-    
-
     int imageIndex = 0;
-    public void animateHero()
-    {
-        if(animationTimer.millisElapsed() < 100)
-        {
-            return;
-        }
-        animationTimer.mark();
-        if(facing.equals("right"))
-        {
-            
-            setImage(heroRight[imageIndex]);
-            imageIndex = (imageIndex + 1) % heroRight.length;
-        }
-        else
-        {
-            setImage(heroLeft[imageIndex]);
-            imageIndex = (imageIndex + 1) % heroLeft.length;
-        }
-    }
+
     public Hero() {
-        for(int i = 0; i < heroRight.length; i++)
-        {
+        for(int i = 0; i < heroRight.length; i++) {
             heroRight[i] = new GreenfootImage("images/hero/hero" + i + ".png");
             heroRight[i].scale(50,50);
         }
 
-  
-        for(int i = 0; i < heroLeft.length; i++)
-        {
+        for(int i = 0; i < heroLeft.length; i++) {
             heroLeft[i] = new GreenfootImage("images/hero/hero" + i + ".png");
             heroLeft[i].scale(50,50);
             heroLeft[i].mirrorHorizontally();
         }
 
-        
         animationTimer.mark();
         setImage(heroRight[0]);
+
         this.level = persistentLevel;
         this.maxHealth = 100 + (level / 5) * 10;
         this.currHealth = maxHealth;
         this.defense = 1 + (level / 5);
         this.attack = 1 + (level / 5);
         this.speed = 3 + (level / 10);
-        
 
         updateShootDelay();
     }
@@ -72,11 +48,11 @@ public class Hero extends Actor {
         checkKeys();
         shootTimer++;
         animateHero();
+
         // Cheat key: press "l" to level up
         if (Greenfoot.isKeyDown("l")) {
             levelUp();
         }
-
     }
 
     private void checkKeys() {
@@ -113,10 +89,8 @@ public class Hero extends Actor {
     }
 
     private void shoot(String direction) {
-        World world = getWorld();
-
+        // Only do triple shot if tripleUnlocked is true
         if (MyWorld.tripleUnlocked) {
-            // Fire 3 bullets: center, offset left, offset right
             shootSingle(direction, 0);
             shootSingle(direction, 10);
             shootSingle(direction, -10);
@@ -126,8 +100,8 @@ public class Hero extends Actor {
     }
 
     private void shootSingle(String direction, int angleOffset) {
-        Bullet bullet = new Bullet(direction, attack * 5, angleOffset);
-        bullet.setRotation(bullet.getRotation() + angleOffset);
+        int damage = attack * 5;
+        Bullet bullet = new Bullet(direction, damage, angleOffset);
         getWorld().addObject(bullet, getX(), getY());
     }
 
@@ -184,8 +158,8 @@ public class Hero extends Actor {
 
     public void levelUp() {
         level += 5;
-    
-        
+
+        // Unlock piercing shot at level 20
         if (level >= 20 && !MyWorld.piercingUnlocked) {
             MyWorld.piercingUnlocked = true;
             Label unlockLabel = new Label("Piercing Shot Unlocked!", "Arial", 36);
@@ -193,7 +167,8 @@ public class Hero extends Actor {
             unlockLabel.setLineColor(Color.BLACK);
             getWorld().addObject(unlockLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4);
         }
-    
+
+        // Unlock triple shot at level 40
         if (level >= 40 && !MyWorld.tripleUnlocked) {
             MyWorld.tripleUnlocked = true;
             Label tripleLabel = new Label("Triple Shot Unlocked!", "Arial", 36);
@@ -201,15 +176,15 @@ public class Hero extends Actor {
             tripleLabel.setLineColor(Color.BLACK);
             getWorld().addObject(tripleLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4 + 40);
         }
-    
+
         maxHealth += 10;
         currHealth = maxHealth;
-        attack+=3;
+        attack += 3;
         defense++;
         speed++;
         heal(maxHealth);
         persistentLevel = level;
-    
+
         updateShootDelay();
     }
 
@@ -225,5 +200,19 @@ public class Hero extends Actor {
     public static void levelUpPersistent(int amount) {
         persistentLevel += amount;
         if (persistentLevel > 80) persistentLevel = 80;
+    }
+
+    public void animateHero() {
+        if (animationTimer.millisElapsed() < 100) {
+            return;
+        }
+        animationTimer.mark();
+
+        if (facing.equals("right")) {
+            setImage(heroRight[imageIndex]);
+        } else {
+            setImage(heroLeft[imageIndex]);
+        }
+        imageIndex = (imageIndex + 1) % heroRight.length;
     }
 }
