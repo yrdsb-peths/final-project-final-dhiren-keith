@@ -1,4 +1,5 @@
 import greenfoot.*;
+import java.util.HashSet;
 
 /**
  * Bullet - Represents a projectile fired by the player.
@@ -6,7 +7,7 @@ import greenfoot.*;
  * Supports piercing shots if enabled in MyWorld.
  * Now also supports angle offsets for triple shot.
  * 
- * @author Keith
+ * @author Keith and Dhiren
  * @version June 10, 2025
  */
 public class Bullet extends Actor {
@@ -14,6 +15,9 @@ public class Bullet extends Actor {
     private int damage;
     private double dx;
     private double dy;
+
+    // ✅ Track which enemies have been hit
+    private HashSet<Enemy> enemiesHit = new HashSet<>();
 
     public Bullet(String direction, int damage, int angleOffset) {
         this.damage = damage;
@@ -28,7 +32,7 @@ public class Bullet extends Actor {
         };
 
         int finalAngle = baseAngle + angleOffset;
-        setRotation(finalAngle); // for bullet image
+        setRotation(finalAngle); // For bullet image
 
         double radians = Math.toRadians(finalAngle);
         dx = Math.cos(radians) * speed;
@@ -52,11 +56,17 @@ public class Bullet extends Actor {
     private boolean checkCollision() {
         Enemy enemy = (Enemy)getOneIntersectingObject(Enemy.class);
         if (enemy != null) {
-            enemy.takeDamage(damage);
-            if (!MyWorld.piercingUnlocked) {
-                getWorld().removeObject(this);
+           
+            if (!enemiesHit.contains(enemy)) {
+                enemy.takeDamage(damage);
+                enemiesHit.add(enemy);
+
+        
+                if (!MyWorld.piercingUnlocked) {
+                    getWorld().removeObject(this);
+                    return true;
+                }
             }
-            return true;
         }
         return false;
     }

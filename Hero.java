@@ -6,7 +6,7 @@ public class Hero extends Actor {
     GreenfootImage[] heroLeft = new GreenfootImage[10];
     String facing = "right";
     SimpleTimer animationTimer = new SimpleTimer();
-    private static int persistentLevel = 0;
+    public static int persistentLevel = 0;
     private int level;
     private int maxHealth;
     private int currHealth;
@@ -184,16 +184,8 @@ public class Hero extends Actor {
 
     public void levelUp() {
         level += 5;
-        maxHealth += 10;
-        currHealth = maxHealth;
-        attack++;
-        defense++;
-        speed++;
-        heal(maxHealth);
-        persistentLevel = level;
-
-        updateShootDelay();
-
+    
+        
         if (level >= 20 && !MyWorld.piercingUnlocked) {
             MyWorld.piercingUnlocked = true;
             Label unlockLabel = new Label("Piercing Shot Unlocked!", "Arial", 36);
@@ -201,7 +193,7 @@ public class Hero extends Actor {
             unlockLabel.setLineColor(Color.BLACK);
             getWorld().addObject(unlockLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4);
         }
-
+    
         if (level >= 40 && !MyWorld.tripleUnlocked) {
             MyWorld.tripleUnlocked = true;
             Label tripleLabel = new Label("Triple Shot Unlocked!", "Arial", 36);
@@ -209,6 +201,16 @@ public class Hero extends Actor {
             tripleLabel.setLineColor(Color.BLACK);
             getWorld().addObject(tripleLabel, getWorld().getWidth() / 2, getWorld().getHeight() / 4 + 40);
         }
+    
+        maxHealth += 10;
+        currHealth = maxHealth;
+        attack+=3;
+        defense++;
+        speed++;
+        heal(maxHealth);
+        persistentLevel = level;
+    
+        updateShootDelay();
     }
 
     private void updateShootDelay() {

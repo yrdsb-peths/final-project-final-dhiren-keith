@@ -64,11 +64,9 @@ public class Enemy extends Actor {
         this.speed = 2 + (level / 3);
     
         // BIGGER BOOST for level 20 and above
-        if (level >= 20) {
-            this.maxHealth *= 10;      // Big jump in health (10x)
-            this.defense *= 5;         // Still 5x defense
-            this.attack *= 2;          // Double attack
-            this.speed += 3;           // Speed bonus
+        if (Hero.persistentLevel >= 20) {
+            this.maxHealth *= 2;      // Big jump in health (10x)
+            this.defense *= 2;         // Still 5x defense
         }
     
         this.currHealth = maxHealth;
