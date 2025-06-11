@@ -12,6 +12,8 @@ import greenfoot.*;
  * @version June 9, 2025
  */
 public class MyWorld extends World {
+    GreenfootSound levelUpSound = new GreenfootSound("levelUp.mp3");
+    
     protected Hero hero;                  // Reference to the player character
     private int waveNumber = 1;           // Current wave number
     private int enemiesRemaining = 0;     // Enemies left alive in current wave
@@ -83,6 +85,7 @@ public class MyWorld extends World {
                     if (waveDelayTimer == 0) {
                         waveNumber++;
                         if (hero != null) {
+                            levelUpSound.play();
                             hero.levelUp();
                         }
                         startWave();
