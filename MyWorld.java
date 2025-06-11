@@ -1,22 +1,32 @@
 import greenfoot.*;
 
 /**
- * MyWorld - Base world that contains the world selection screen and wave logic.
- * Handles spawning of enemies, tracking levels, and player health bar display.
+ * MyWorld - The base world class that manages the main game environment,
+ * including the world selection screen, enemy wave spawning, level tracking,
+ * and player health bar display.
+ * 
+ * Handles game progression through waves, unlocking player abilities,
+ * and transitioning between worlds and win screens.
  * 
  * @authors Keith and Dhiren  
  * @version June 9, 2025
  */
 public class MyWorld extends World {
-    protected Hero hero;
-    private int waveNumber = 1;
-    private int enemiesRemaining = 0;
-    private int waveDelayTimer = 0;
-    private final int maxWaves = 5;
-    public static boolean piercingUnlocked = false; 
-    public static boolean tripleUnlocked = false;
-    private Label levelDisplay;
+    protected Hero hero;                  // Reference to the player character
+    private int waveNumber = 1;           // Current wave number
+    private int enemiesRemaining = 0;     // Enemies left alive in current wave
+    private int waveDelayTimer = 0;       // Timer to delay wave starts or inputs
+    private final int maxWaves = 5;       // Maximum waves per world
+    public static boolean piercingUnlocked = false; // Whether piercing shot unlocked
+    public static boolean tripleUnlocked = false;   // Whether triple shot unlocked
+    private Label levelDisplay;            // UI label displaying current level
 
+    /**
+     * Constructs the world with a given hero.
+     * Sets background, stores hero reference, and initializes world selection screen.
+     * 
+     * @param hero The player character instance to be used in this world
+     */
     public MyWorld(Hero hero) {
         super(600, 400, 1);
         setBackground("space.jpg");
@@ -24,6 +34,10 @@ public class MyWorld extends World {
         setWorlds();
     }
 
+    /**
+     * Constructs the world with no hero provided.
+     * Resets the persistent player level and initializes the world selection screen.
+     */
     public MyWorld() {
         super(600, 400, 1);
         setBackground("space.jpg");
@@ -31,31 +45,39 @@ public class MyWorld extends World {
         setWorlds();
     }
 
+    /**
+     * Main game loop called each frame.
+     * Handles input for level up at menu, displays level,
+     * transitions to win screen, starts new waves, and manages wave delays.
+     */
     public void act() {
-        // Allow leveling up at the menu screen even if hero isn't spawned
+        // Allow level up via 'l' key on menu screen with cooldown
         if (Greenfoot.isKeyDown("l") && waveDelayTimer == 0) {
-            Hero.levelUpPersistent(5); // Custom method you'll need in Hero
-            waveDelayTimer = 20; // Small delay to prevent rapid firing
+            Hero.levelUpPersistent(5);
+            waveDelayTimer = 20; // Prevent rapid level ups
             levelDisplay.setValue("Current Level: " + Hero.getPersistentLevel());
         } else if (waveDelayTimer > 0) {
-            waveDelayTimer--; // Reduce cooldown
+            waveDelayTimer--;
         }
 
+        // Prevent act logic from running on base MyWorld menu screen
         if (getClass() == MyWorld.class) return;
 
         showText("Level: " + hero.getLevel(), 75, 30);
 
+        // If on final world and all waves complete, transition to WinScreen
         if (getClass() == WorldFive.class && enemiesRemaining == 0 && waveNumber >= maxWaves) {
             Greenfoot.setWorld(new WinScreen());
             return;
         }
 
+        // If no enemies left, manage wave progression and delays
         if (enemiesRemaining == 0) {
             if (waveNumber >= maxWaves) {
-                Greenfoot.setWorld(new MyWorld(hero));
+                Greenfoot.setWorld(new MyWorld(hero)); // Restart world
             } else {
                 if (waveDelayTimer == 0) {
-                    waveDelayTimer = 120;
+                    waveDelayTimer = 120; // Delay before next wave
                 } else {
                     waveDelayTimer--;
                     if (waveDelayTimer == 0) {
@@ -70,15 +92,25 @@ public class MyWorld extends World {
         }
     }
 
+    /**
+     * Prepares the world by adding the hero and a health bar.
+     * Called when initializing or restarting a level.
+     */
     public void prepare() {
         if (hero == null) {
             hero = new Hero();
         }
         addObject(hero, getWidth() / 2, getHeight() / 2);
+
         HealthBar healthBar = new HealthBar(hero);
         addObject(healthBar, hero.getX(), hero.getY() - 20);
     }
 
+    /**
+     * Starts a wave of enemies.
+     * Spawns enemies around the edges of the world based on the current wave number.
+     * Enemy difficulty scales with the hero's level.
+     */
     public void startWave() {
         int numberOfEnemies = waveNumber * 3;
         int heroLevel = hero.getLevel();
@@ -86,6 +118,7 @@ public class MyWorld extends World {
         for (int i = 0; i < numberOfEnemies; i++) {
             int x = 0, y = 0;
             int side = Greenfoot.getRandomNumber(4);
+            // Spawn enemy just outside one edge of the screen randomly
             if (side == 0) {
                 x = -50;
                 y = Greenfoot.getRandomNumber(getHeight());
@@ -103,13 +136,21 @@ public class MyWorld extends World {
             Enemy goon = new Enemy(heroLevel / 2);
             addObject(goon, x, y);
         }
+
         enemiesRemaining = numberOfEnemies;
     }
 
+    /**
+     * Called to reduce the count of remaining enemies when one is defeated.
+     */
     public void decrementEnemies() {
         enemiesRemaining--;
     }
 
+    /**
+     * Sets up the world selection screen with selectable worlds and displays current player level.
+     * Adds labels and buttons for each world unlock tier.
+     */
     private void setWorlds() {
         int currentLevel = Hero.getPersistentLevel();
 
@@ -128,6 +169,11 @@ public class MyWorld extends World {
         addObject(levelDisplay, 100, 370);
     }
 
+    /**
+     * Returns the hero instance associated with this world.
+     * 
+     * @return the current Hero object
+     */
     public Hero getHero() {
         return hero;
     }
